@@ -15,7 +15,11 @@ use App\Http\Controllers\RedirectFromGithub;
 use App\Http\Controllers\RedirectToGithub;
 
 Route::get('/', function () {
-    return view('welcome');
+    $user = auth()->check() ? auth()->user() : new stdClass();
+
+    return view('welcome', [
+        'user' => $user
+    ]);
 });
 
 Route::get('/auth/github', RedirectToGithub::class);

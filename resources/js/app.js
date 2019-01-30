@@ -9,8 +9,10 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import VueRouter from 'vue-router';
+import Vuelidate from 'vuelidate'
 
 Vue.use(VueRouter);
+Vue.use(Vuelidate);
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
@@ -71,10 +73,16 @@ const app = new Vue({
         advanceRoute()
         {
             let route = routes.filter(route => {
+                console.log(route.meta.step, this.state.step);
                 return route.meta.step === this.state.step;
             }).pop();
 
             this.$router.push(route.path);
         }
+    },
+
+    mounted()
+    {
+        this.advanceRoute();
     }
 });

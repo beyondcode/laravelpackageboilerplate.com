@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "form-backend-validation": "^2.3.6",
-        "vue-router": "^3.0.2"
+        "vue-router": "^3.0.2",
+        "vuelidate": "^0.7.4"
     }
 }

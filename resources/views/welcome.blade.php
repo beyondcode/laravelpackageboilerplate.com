@@ -12,6 +12,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script>
+        window.user = {!! json_encode($user) !!};
+    </script>
 </head>
 <body class="bg-grey-lighter font-sans font-normal antialiased h-full w-full">
     <div class="w-full h-full lg:p-16" id="packageApp">
