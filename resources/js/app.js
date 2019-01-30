@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -9,13 +8,9 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+import VueRouter from 'vue-router';
+
+Vue.use(VueRouter);
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
@@ -28,25 +23,58 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import { store } from './store';
+
+import PackageSelection from './components/PackageSelection.vue';
+import PackageDetails from './components/PackageDetails.vue';
+
+const routes = [
+    { path: '/', component: PackageSelection, meta: { step: 1} },
+    { path: '/package-details', component: PackageDetails, meta: { step: 2} }
+];
+
+const router = new VueRouter({
+    routes
+});
+
+router.beforeEach((to, from, next) => {
+    if (store.state.step >= to.meta.step) {
+        return next();
+    }
+
+    return next('/');
+});
+
 const app = new Vue({
     el: '#packageApp',
+    router,
 
     data: {
-        step: 1,
-
-        form: {
-            packageType: 'laravel',
-        }
+        state: store.state
     },
 
     methods: {
-        selectPackageType(packageType) {
-            this.form.packageType = packageType;
-        },
-
         nextStep()
         {
-            this.step++;
+            store.increaseStep();
+
+            this.advanceRoute();
+        },
+
+        previousStep()
+        {
+            store.decreaseStep();
+
+            this.advanceRoute();
+        },
+
+        advanceRoute()
+        {
+            let route = routes.filter(route => {
+                return route.meta.step === this.state.step;
+            }).pop();
+
+            this.$router.push(route.path);
         }
     }
 });
