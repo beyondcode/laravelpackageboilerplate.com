@@ -12,7 +12,9 @@
         "fideloper/proxy": "^4.0",
         "laravel-frontend-presets/tailwindcss": "^0.7.0",
         "laravel/framework": "5.7.*",
-        "laravel/tinker": "^1.0"
+        "laravel/socialite": "^4.0",
+        "laravel/tinker": "^1.0",
+        "socialiteproviders/github": "dev-master"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

@@ -11,6 +11,12 @@
 |
 */
 
+use App\Http\Controllers\RedirectFromGithub;
+use App\Http\Controllers\RedirectToGithub;
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/auth/github', RedirectToGithub::class);
+Route::get('/auth/github/callback', RedirectFromGithub::class);
