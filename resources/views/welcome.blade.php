@@ -16,12 +16,14 @@
     <meta name="twitter:title" content="Laravel Package Boilerplate"/>
     <meta name="twitter:description"
           content="Get started with your next PHP/Laravel package in no time with this package boilerplate generator."/>
+    <meta name="twitter:image" content="https://laravelpackageboilerplate.com/img/twitter-card.png"/>
 
     <meta property="og:url" content="https://laravelpackageboilerplate.com"/>
     <meta property="og:type" content="product"/>
     <meta property="og:title" content="Laravel Package Boilerplate"/>
     <meta property="og:description"
           content="Get started with your next PHP/Laravel package in no time with this package boilerplate generator."/>
+    <meta property="og:image" content="https://laravelpackageboilerplate.com/img/twitter-card.png"/>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
