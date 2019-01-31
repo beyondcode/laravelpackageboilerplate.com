@@ -13,13 +13,13 @@
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:creator" content="@marcelpociot"/>
     <meta name="twitter:site" content="@marcelpociot"/>
-    <meta name="twitter:title" content="PHP Package Boilerplate"/>
+    <meta name="twitter:title" content="Laravel Package Boilerplate"/>
     <meta name="twitter:description"
           content="Get started with your next PHP/Laravel package in no time with this package boilerplate generator."/>
 
-    <meta property="og:url" content="https://phppackageboilerplate.com"/>
+    <meta property="og:url" content="https://laravelpackageboilerplate.com"/>
     <meta property="og:type" content="product"/>
-    <meta property="og:title" content="PHP Package Boilerplate"/>
+    <meta property="og:title" content="Laravel Package Boilerplate"/>
     <meta property="og:description"
           content="Get started with your next PHP/Laravel package in no time with this package boilerplate generator."/>
 
