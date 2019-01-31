@@ -33,6 +33,16 @@
             window.step = 2;
         @endif
     </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75386803-11"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-75386803-11');
+    </script>
+
 </head>
 <body class="bg-grey-lighter font-sans font-normal antialiased h-full w-full">
     <div class="w-full h-full lg:p-16" id="packageApp">

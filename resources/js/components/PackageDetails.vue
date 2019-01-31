@@ -7,30 +7,34 @@
 
             <div>
 
-                <div class="flex pt-8" v-if="! user.id">
+                <div class="flex pt-8 justify-center items-center" v-if="! user.id">
                     <a href="/auth/github" class="no-underline text-white cursor-pointer w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase">
                         Login with GitHub
                     </a>
+
+                    <p class="pl-2 leading-normal">
+                        Login with GitHub to pre-fill your user information and to be able to create a public repository with your shiny package boilerplate code.
+                    </p>
                 </div>
 
                 <div class="flex flex-col lg:flex-row py-8">
                     <div class="flex flex-col lg:w-1/2">
-                        <label class="pb-4" for="vendorName" :class="{ 'text-red': $v.vendorName.$error }">Vendor Name</label>
+                        <label class="pb-4" for="vendorName" :class="{ 'text-red': $v.vendorName.$error }">Vendor Name *</label>
                         <input class="outline-none rounded-sm p-4" id="vendorName" type="text" placeholder="beyondcode" v-model="$v.vendorName.$model">
                     </div>
                     <div class="lg:pl-4 pt-4 lg:pt-0 flex flex-col lg:w-1/2">
-                        <label class="pb-4" for="packageName" :class="{ 'text-red': $v.packageName.$error }">Package Name</label>
+                        <label class="pb-4" for="packageName" :class="{ 'text-red': $v.packageName.$error }">Package Name *</label>
                         <input class="outline-none rounded-sm p-4" id="packageName" type="text" placeholder="my-package" v-model="$v.packageName.$model">
                     </div>
                 </div>
 
                 <div class="flex flex-col lg:flex-row pb-8">
                     <div class="flex flex-col lg:w-1/2">
-                        <label class="pb-4" for="authorName" :class="{ 'text-red': $v.authorName.$error }">Author Name</label>
+                        <label class="pb-4" for="authorName" :class="{ 'text-red': $v.authorName.$error }">Author Name *</label>
                         <input class="outline-none rounded-sm p-4" id="authorName" type="text" placeholder="Jane Doe" v-model="$v.authorName.$model">
                     </div>
                     <div class="lg:pl-4 pt-4 lg:pt-0 flex flex-col lg:w-1/2">
-                        <label class="pb-4" for="authorEmail" :class="{ 'text-red': $v.authorEmail.$error }">Author Email</label>
+                        <label class="pb-4" for="authorEmail" :class="{ 'text-red': $v.authorEmail.$error }">Author Email *</label>
                         <input class="outline-none rounded-sm p-4" id="authorEmail" type="email" placeholder="author@domain.com" v-model="$v.authorEmail.$model">
                     </div>
                 </div>
@@ -83,7 +87,9 @@
                 </div>
             </div>
             <div class="flex w-full self-end flex-col">
-                <div class="cursor-pointer self-end px-4 md:w-1/3  bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="nextStep">
+                <div class="cursor-pointer self-end px-4 md:w-1/3  bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase"
+                     :class="{'opacity-50': $v.$anyError}"
+                     @click="nextStep">
                     Next
                 </div>
             </div>
