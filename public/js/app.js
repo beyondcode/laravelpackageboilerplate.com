@@ -1440,10 +1440,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuelidate__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuelidate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vuelidate__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_PackageSelection_vue__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_PackageSelection_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_PackageSelection_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_PackageDetails_vue__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__components_PackageDetails_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__components_PackageDetails_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__routes__ = __webpack_require__(93);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -1474,12 +1471,8 @@ Vue.component('example-component', __webpack_require__(45).default);
 
 
 
-
-
-var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_3__components_PackageSelection_vue___default.a, meta: { step: 1 } }, { path: '/package-details', component: __WEBPACK_IMPORTED_MODULE_4__components_PackageDetails_vue___default.a, meta: { step: 2 } }];
-
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
-    routes: routes
+    routes: __WEBPACK_IMPORTED_MODULE_3__routes__["a" /* routes */]
 });
 
 router.beforeEach(function (to, from, next) {
@@ -1512,8 +1505,7 @@ var app = new Vue({
         advanceRoute: function advanceRoute() {
             var _this = this;
 
-            var route = routes.filter(function (route) {
-                console.log(route.meta.step, _this.state.step);
+            var route = __WEBPACK_IMPORTED_MODULE_3__routes__["a" /* routes */].filter(function (route) {
                 return route.meta.step === _this.state.step;
             }).pop();
 
@@ -37364,6 +37356,7 @@ module.exports = function listToStyles (parentId, list) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes__ = __webpack_require__(93);
 //
 //
 //
@@ -37390,6 +37383,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -37406,6 +37410,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         selectPackageType: function selectPackageType(packageType) {
             __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].setPackageType(packageType);
+        },
+        nextStep: function nextStep() {
+            __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].increaseStep();
+
+            this.advanceRoute();
+        },
+        previousStep: function previousStep() {
+            __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].decreaseStep();
+
+            this.advanceRoute();
+        },
+        advanceRoute: function advanceRoute() {
+            var _this = this;
+
+            var route = __WEBPACK_IMPORTED_MODULE_1__routes__["a" /* routes */].filter(function (route) {
+                return route.meta.step === _this.state.step;
+            }).pop();
+
+            this.$router.push(route.path);
         }
     }
 });
@@ -37419,43 +37442,59 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex-grow flex flex-col" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "flex-grow flex flex-col" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "flex flex-row flex-grow justify-center items-center" },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
+              class: { "text-red": _vm.state.packageType === "laravel" },
+              on: {
+                click: function($event) {
+                  _vm.selectPackageType("laravel")
+                }
+              }
+            },
+            [_vm._v("\n                Laravel\n            ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
+              class: { "text-red": _vm.state.packageType === "php" },
+              on: {
+                click: function($event) {
+                  _vm.selectPackageType("php")
+                }
+              }
+            },
+            [_vm._v("\n                PHP\n            ")]
+          )
+        ]
+      )
+    ]),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "flex flex-row flex-grow justify-center items-center" },
-      [
+    _c("div", { staticClass: "flex" }, [
+      _c("div", { staticClass: "flex w-full self-end flex-col" }, [
         _c(
           "div",
           {
             staticClass:
-              "hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
-            class: { "text-red": _vm.state.packageType === "laravel" },
-            on: {
-              click: function($event) {
-                _vm.selectPackageType("laravel")
-              }
-            }
+              "cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+            on: { click: _vm.nextStep }
           },
-          [_vm._v("\n            Laravel\n        ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
-            class: { "text-red": _vm.state.packageType === "php" },
-            on: {
-              click: function($event) {
-                _vm.selectPackageType("php")
-              }
-            }
-          },
-          [_vm._v("\n            PHP\n        ")]
+          [_vm._v("\n                Next\n            ")]
         )
-      ]
-    )
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -37581,6 +37620,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routes__ = __webpack_require__(93);
 //
 //
 //
@@ -37636,6 +37676,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -37654,7 +37715,11 @@ var alphaDash = function alphaDash(value) {
             state: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state,
 
             vendorName: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.vendorName,
-            packageName: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.packageName
+            packageName: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.packageName,
+            authorName: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.authorName,
+            authorEmail: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.authorEmail,
+            license: 'MIT',
+            packageDescription: ''
         };
     },
 
@@ -37669,6 +37734,41 @@ var alphaDash = function alphaDash(value) {
         packageName: {
             required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
             alphaDash: alphaDash
+        },
+
+        authorName: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"]
+        },
+
+        authorEmail: {
+            required: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["required"],
+            email: __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__["email"]
+        }
+    },
+
+    methods: {
+        nextStep: function nextStep() {
+            this.$v.$touch();
+
+            if (!this.$v.$invalid) {
+                __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].increaseStep();
+
+                this.advanceRoute();
+            }
+        },
+        previousStep: function previousStep() {
+            __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].decreaseStep();
+
+            this.advanceRoute();
+        },
+        advanceRoute: function advanceRoute() {
+            var _this = this;
+
+            var route = __WEBPACK_IMPORTED_MODULE_2__routes__["a" /* routes */].filter(function (route) {
+                return route.meta.step === _this.state.step;
+            }).pop();
+
+            this.$router.push(route.path);
         }
     }
 });
@@ -37682,166 +37782,324 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "flex-grow flex flex-col" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", [
-      !_vm.user.id
-        ? _c("div", { staticClass: "flex pt-8" }, [
+    _c("div", { staticClass: "flex-grow flex flex-col" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", [
+        !_vm.user.id
+          ? _c("div", { staticClass: "flex pt-8" }, [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "no-underline text-white cursor-pointer w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+                  attrs: { href: "/auth/github" }
+                },
+                [
+                  _vm._v(
+                    "\n                    Login with GitHub\n                "
+                  )
+                ]
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex flex-col lg:flex-row py-8" }, [
+          _c("div", { staticClass: "flex flex-col w-1/2" }, [
             _c(
-              "a",
+              "label",
               {
-                staticClass:
-                  "no-underline text-white cursor-pointer w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
-                attrs: { href: "/auth/github" }
+                staticClass: "pb-4",
+                class: { "text-red": _vm.$v.vendorName.$error },
+                attrs: { for: "vendorName" }
               },
-              [_vm._v("\n                Login with GitHub\n            ")]
-            )
+              [_vm._v("Vendor Name")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.$v.vendorName.$model,
+                  expression: "$v.vendorName.$model"
+                }
+              ],
+              staticClass: "outline-none rounded-sm p-4",
+              attrs: {
+                id: "vendorName",
+                type: "text",
+                placeholder: "beyondcode"
+              },
+              domProps: { value: _vm.$v.vendorName.$model },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.$v.vendorName, "$model", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "lg:pl-4 pt-4 lg:pt-0 flex flex-col w-1/2" },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "pb-4",
+                  class: { "text-red": _vm.$v.packageName.$error },
+                  attrs: { for: "packageName" }
+                },
+                [_vm._v("Package Name")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.$v.packageName.$model,
+                    expression: "$v.packageName.$model"
+                  }
+                ],
+                staticClass: "outline-none rounded-sm p-4",
+                attrs: {
+                  id: "packageName",
+                  type: "text",
+                  placeholder: "my-package"
+                },
+                domProps: { value: _vm.$v.packageName.$model },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.$v.packageName, "$model", $event.target.value)
+                  }
+                }
+              })
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex flex-col lg:flex-row pb-8" }, [
+          _c("div", { staticClass: "flex flex-col w-1/2" }, [
+            _c(
+              "label",
+              {
+                staticClass: "pb-4",
+                class: { "text-red": _vm.$v.authorName.$error },
+                attrs: { for: "authorName" }
+              },
+              [_vm._v("Author Name")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.$v.authorName.$model,
+                  expression: "$v.authorName.$model"
+                }
+              ],
+              staticClass: "outline-none rounded-sm p-4",
+              attrs: {
+                id: "authorName",
+                type: "text",
+                placeholder: "Jane Doe"
+              },
+              domProps: { value: _vm.$v.authorName.$model },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.$v.authorName, "$model", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "lg:pl-4 pt-4 lg:pt-0 flex flex-col w-1/2" },
+            [
+              _c(
+                "label",
+                {
+                  staticClass: "pb-4",
+                  class: { "text-red": _vm.$v.authorEmail.$error },
+                  attrs: { for: "authorEmail" }
+                },
+                [_vm._v("Author Email")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.$v.authorEmail.$model,
+                    expression: "$v.authorEmail.$model"
+                  }
+                ],
+                staticClass: "outline-none rounded-sm p-4",
+                attrs: {
+                  id: "authorEmail",
+                  type: "email",
+                  placeholder: "author@domain.com"
+                },
+                domProps: { value: _vm.$v.authorEmail.$model },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.$v.authorEmail, "$model", $event.target.value)
+                  }
+                }
+              })
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex flex-col lg:flex-row pb-8" }, [
+          _c("div", { staticClass: "flex flex-col w-full" }, [
+            _c(
+              "label",
+              { staticClass: "pb-4", attrs: { for: "packageDescription" } },
+              [_vm._v("Package Description")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.packageDescription,
+                  expression: "packageDescription"
+                }
+              ],
+              staticClass: "outline-none rounded-sm p-4",
+              attrs: {
+                id: "packageDescription",
+                type: "text",
+                placeholder: "My awesome package"
+              },
+              domProps: { value: _vm.packageDescription },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.packageDescription = $event.target.value
+                }
+              }
+            })
           ])
-        : _vm._e(),
-      _vm._v(" "),
-      _c("div", { staticClass: "flex flex-col lg:flex-row py-8" }, [
-        _c("div", { staticClass: "flex flex-col w-1/2" }, [
-          _c(
-            "label",
-            {
-              staticClass: "pb-4",
-              class: { "text-red": _vm.$v.vendorName.$error },
-              attrs: { for: "vendorName" }
-            },
-            [_vm._v("Vendor Name")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.$v.vendorName.$model,
-                expression: "$v.vendorName.$model"
-              }
-            ],
-            staticClass: "outline-none rounded-sm p-4",
-            attrs: {
-              id: "vendorName",
-              type: "text",
-              placeholder: "beyondcode"
-            },
-            domProps: { value: _vm.$v.vendorName.$model },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.$v.vendorName, "$model", $event.target.value)
-              }
-            }
-          })
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "lg:pl-4 pt-4 lg:pt-0 flex flex-col w-1/2" }, [
-          _c(
-            "label",
-            {
-              staticClass: "pb-4",
-              class: { "text-red": _vm.$v.packageName.$error },
-              attrs: { for: "packageName" }
-            },
-            [_vm._v("Package Name")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.$v.packageName.$model,
-                expression: "$v.packageName.$model"
-              }
-            ],
-            staticClass: "outline-none rounded-sm p-4",
-            attrs: {
-              id: "packageName",
-              type: "text",
-              placeholder: "my-package"
-            },
-            domProps: { value: _vm.$v.packageName.$model },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.$v.packageName, "$model", $event.target.value)
-              }
-            }
-          })
+        _c("div", { staticClass: "flex flex-col lg:flex-row pb-8" }, [
+          _c("div", { staticClass: "flex flex-col w-full" }, [
+            _c("label", { staticClass: "pb-4", attrs: { for: "license" } }, [
+              _vm._v("License")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "inline-block relative" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.license,
+                      expression: "license"
+                    }
+                  ],
+                  staticClass:
+                    "block appearance-none w-full bg-white border border-grey-light hover:border-grey px-4 py-4 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.license = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [_c("option", { attrs: { value: "MIT" } }, [_vm._v("MIT")])]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker"
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "fill-current h-4 w-4",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 20 20"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              )
+            ])
+          ])
         ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "flex" }, [
+      _c("div", { staticClass: "flex w-full" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "cursor-pointer w-1/3 bg-blue-darkest h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+            on: { click: _vm.previousStep }
+          },
+          [_vm._v("\n                Previous\n            ")]
+        )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "flex flex-col lg:flex-row pb-8" }, [
-        _c("div", { staticClass: "flex flex-col w-1/2" }, [
-          _c("label", { staticClass: "pb-4", attrs: { for: "authorName" } }, [
-            _vm._v("Author Name")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.state.authorName,
-                expression: "state.authorName"
-              }
-            ],
-            staticClass: "outline-none rounded-sm p-4",
-            attrs: { id: "authorName", type: "text", placeholder: "Jane Doe" },
-            domProps: { value: _vm.state.authorName },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.state, "authorName", $event.target.value)
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "lg:pl-4 pt-4 lg:pt-0 flex flex-col w-1/2" }, [
-          _c("label", { staticClass: "pb-4", attrs: { for: "authorEmail" } }, [
-            _vm._v("Author Email")
-          ]),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.state.authorEmail,
-                expression: "state.authorEmail"
-              }
-            ],
-            staticClass: "outline-none rounded-sm p-4",
-            attrs: {
-              id: "authorEmail",
-              type: "text",
-              placeholder: "author@domain.com"
-            },
-            domProps: { value: _vm.state.authorEmail },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.state, "authorEmail", $event.target.value)
-              }
-            }
-          })
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _vm._m(2)
+      _c("div", { staticClass: "flex w-full self-end flex-col" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+            on: { click: _vm.nextStep }
+          },
+          [_vm._v("\n                Next\n            ")]
+        )
+      ])
     ])
   ])
 }
@@ -37854,50 +38112,6 @@ var staticRenderFns = [
       _c("h2", [
         _vm._v("Fill in some package "),
         _c("span", { staticClass: "text-red" }, [_vm._v("details")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex flex-col lg:flex-row pb-8" }, [
-      _c("div", { staticClass: "flex flex-col w-full" }, [
-        _c(
-          "label",
-          { staticClass: "pb-4", attrs: { for: "packageDescription" } },
-          [_vm._v("Package Description")]
-        ),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "outline-none rounded-sm p-4",
-          attrs: {
-            id: "packageDescription",
-            type: "text",
-            placeholder: "My awesome package"
-          }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex flex-col lg:flex-row pb-8" }, [
-      _c("div", { staticClass: "flex flex-col w-full" }, [
-        _c("label", { staticClass: "pb-4", attrs: { for: "license" } }, [
-          _vm._v("License")
-        ]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            staticClass: "outline-none rounded-sm p-4",
-            attrs: { id: "license" }
-          },
-          [_c("option", { attrs: { value: "MIT" } }, [_vm._v("MIT")])]
-        )
       ])
     ])
   }
@@ -38763,6 +38977,309 @@ var _common = __webpack_require__(63);
 var _default = (0, _common.regex)('decimal', /^[-]?\d*(\.\d+)?$/);
 
 exports.default = _default;
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(89)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(91)
+/* template */
+var __vue_template__ = __webpack_require__(92)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-1e34bf5a"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/PackageDownload.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1e34bf5a", Component.options)
+  } else {
+    hotAPI.reload("data-v-1e34bf5a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(90);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(12)("4bc1e0c4", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1e34bf5a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PackageDownload.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1e34bf5a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PackageDownload.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(11)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 91 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes__ = __webpack_require__(93);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "PackageDownload",
+
+    data: function data() {
+        return {
+            state: __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state,
+            packageName: __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.packageName
+        };
+    },
+
+
+    methods: {
+        selectPackageType: function selectPackageType(packageType) {
+            __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].setPackageType(packageType);
+        },
+        nextStep: function nextStep() {
+            __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].increaseStep();
+
+            this.advanceRoute();
+        },
+        previousStep: function previousStep() {
+            __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].decreaseStep();
+
+            this.advanceRoute();
+        },
+        advanceRoute: function advanceRoute() {
+            var _this = this;
+
+            var route = __WEBPACK_IMPORTED_MODULE_1__routes__["a" /* routes */].filter(function (route) {
+                return route.meta.step === _this.state.step;
+            }).pop();
+
+            this.$router.push(route.path);
+        }
+    }
+});
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "flex-grow flex flex-col" }, [
+    _c("div", { staticClass: "flex-grow flex flex-col" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "flex flex-row flex-grow justify-center items-center" },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
+              class: { "text-red": _vm.state.packageType === "laravel" },
+              on: {
+                click: function($event) {
+                  _vm.selectPackageType("laravel")
+                }
+              }
+            },
+            [_vm._v("\n                Download ZIP\n            ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
+              class: { "text-red": _vm.state.packageType === "php" },
+              on: {
+                click: function($event) {
+                  _vm.selectPackageType("php")
+                }
+              }
+            },
+            [_vm._v("\n                Create repo\n            ")]
+          )
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "flex" }, [
+      _c("div", { staticClass: "flex w-full" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "cursor-pointer w-1/3 bg-blue-darkest h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+            on: { click: _vm.previousStep }
+          },
+          [_vm._v("\n                Previous\n            ")]
+        )
+      ]),
+      _vm._v(" "),
+      _vm._m(1)
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "pt-16 text-2xl" }, [
+      _c("h2", [
+        _vm._v("You're almost "),
+        _c("span", { staticClass: "text-red" }, [_vm._v("done")]),
+        _vm._v("!")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "flex w-full self-end flex-col" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase"
+        },
+        [_vm._v("\n                Download\n            ")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1e34bf5a", module.exports)
+  }
+}
+
+/***/ }),
+/* 93 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return routes; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_PackageSelection_vue__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_PackageSelection_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_PackageSelection_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_PackageDetails_vue__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_PackageDetails_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_PackageDetails_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_PackageDownload_vue__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_PackageDownload_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_PackageDownload_vue__);
+
+
+
+
+var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_PackageSelection_vue___default.a, meta: { step: 1 } }, { path: '/package-details', component: __WEBPACK_IMPORTED_MODULE_1__components_PackageDetails_vue___default.a, meta: { step: 2 } }, { path: '/package-download', component: __WEBPACK_IMPORTED_MODULE_2__components_PackageDownload_vue___default.a, meta: { step: 3 } }];
 
 /***/ })
 /******/ ]);

@@ -2,7 +2,7 @@
     <div class="flex-grow flex flex-col">
         <div class="flex-grow flex flex-col">
             <div class="pt-16 text-2xl">
-                <h2>Which package do you want to <span class="text-red">build</span>?</h2>
+                <h2>You're almost <span class="text-red">done</span>!</h2>
             </div>
 
             <div class="flex flex-row flex-grow justify-center items-center">
@@ -11,23 +11,28 @@
                      :class="{'text-red': state.packageType === 'laravel'}"
                      @click="selectPackageType('laravel')"
                 >
-                    Laravel
+                    Download ZIP
                 </div>
 
                 <div class="hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center"
                      :class="{'text-red': state.packageType === 'php'}"
                      @click="selectPackageType('php')"
                 >
-                    PHP
+                    Create repo
                 </div>
 
             </div>
         </div>
 
         <div class="flex">
+            <div class="flex w-full">
+                <div class="cursor-pointer w-1/3 bg-blue-darkest h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="previousStep">
+                    Previous
+                </div>
+            </div>
             <div class="flex w-full self-end flex-col">
-                <div class="cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="nextStep">
-                    Next
+                <div class="cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase">
+                    Download
                 </div>
             </div>
         </div>
@@ -39,11 +44,12 @@
     import { routes } from './../routes';
 
     export default {
-        name: "PackageSelection",
+        name: "PackageDownload",
 
         data() {
             return {
-                state: store.state
+                state: store.state,
+                packageName: store.state.packageName,
             };
         },
 
@@ -74,7 +80,7 @@
 
                 this.$router.push(route.path);
             }
-        }
+        },
     }
 </script>
 

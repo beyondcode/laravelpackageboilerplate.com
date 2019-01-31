@@ -27,19 +27,6 @@
                     </div>
 
                     <router-view></router-view>
-
-                    <div class="flex">
-                        <div class="flex w-full" v-if="state.step > 1">
-                            <div class="cursor-pointer w-1/3 bg-blue-darkest h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="previousStep">
-                                Previous
-                            </div>
-                        </div>
-                        <div class="flex w-full self-end flex-col">
-                            <div class="cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="nextStep">
-                                Next
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="hidden lg:block lg:w-1/3 bg-white lg:rounded-r-xl text-grey-darkest">

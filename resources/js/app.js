@@ -26,14 +26,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 import { store } from './store';
-
-import PackageSelection from './components/PackageSelection.vue';
-import PackageDetails from './components/PackageDetails.vue';
-
-const routes = [
-    { path: '/', component: PackageSelection, meta: { step: 1} },
-    { path: '/package-details', component: PackageDetails, meta: { step: 2} }
-];
+import { routes } from './routes';
 
 const router = new VueRouter({
     routes
@@ -73,7 +66,6 @@ const app = new Vue({
         advanceRoute()
         {
             let route = routes.filter(route => {
-                console.log(route.meta.step, this.state.step);
                 return route.meta.step === this.state.step;
             }).pop();
 
