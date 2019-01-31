@@ -10,7 +10,6 @@
 
     <title>{{ config('app.name', 'Laravel') }} - Kickstart your next package</title>
 
-
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:creator" content="@marcelpociot"/>
     <meta name="twitter:site" content="@marcelpociot"/>

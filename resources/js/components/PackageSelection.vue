@@ -15,7 +15,7 @@
             </div>
 
 
-            <div class="flex flex-col md:flex-row flex-grow justify-center items-center">
+            <div class="py-8 flex flex-col md:flex-row flex-grow justify-center items-center">
 
                 <div class="hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center"
                      :class="{'text-red': state.packageType === 'laravel'}"
