@@ -48,3 +48,7 @@ If you discover any security related issues, please email :author_email instead 
 ## License
 
 The :license_shortname. Please see [License File](LICENSE.md) for more information.
+
+## PHP Package Boilerplate
+
+This package was generated using the [PHP Package Boilerplate](https://laravelpackageboilerplate.com).
