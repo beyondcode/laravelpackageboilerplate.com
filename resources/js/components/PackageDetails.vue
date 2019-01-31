@@ -63,6 +63,16 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="flex flex-col lg:flex-row pb-8">
+                    <div class="flex flex-col w-full">
+                        <label class="pb-4" for="newsletter">Stay in the loop</label>
+                        <div class="flex">
+                            <input type="checkbox" id="newsletter" value="1" v-model="newsletter">
+                            <label for="newsletter" class="pl-2">I want to learn more about {{ packageType }} package development.</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -102,7 +112,8 @@
                 authorName: store.state.authorName,
                 authorEmail: store.state.authorEmail,
                 license: store.state.license,
-                packageDescription: store.state.packageDescription
+                packageDescription: store.state.packageDescription,
+                newsletter: store.state.newsletter
             };
         },
 
@@ -128,6 +139,15 @@
             }
         },
 
+        computed: {
+            packageType() {
+                if (this.state.packageType === 'laravel') {
+                    return 'Laravel';
+                }
+                return 'PHP';
+            }
+        },
+
         methods: {
             nextStep()
             {
@@ -142,6 +162,7 @@
                     store.setAuthorEmail(this.authorEmail);
                     store.setLicense(this.license);
                     store.setPackageDescription(this.packageDescription);
+                    store.setNewsletter(this.newsletter);
 
                     this.advanceRoute();
                 }

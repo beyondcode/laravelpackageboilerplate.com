@@ -17,6 +17,10 @@ class CreateBoilerplateRepository extends Controller
     {
         $boilerplate = BoilerplateRepository::findForBoilerplateType($request->packageType);
 
+        if ($request->newsletter) {
+            $boilerplate->subscribeToNewsletter($request->authorEmail);
+        }
+
         try {
             $boilerplate->github($request->all());
         } catch (\Exception $e) {

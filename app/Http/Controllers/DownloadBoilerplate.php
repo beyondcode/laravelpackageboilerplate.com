@@ -17,6 +17,10 @@ class DownloadBoilerplate extends Controller
     {
         $boilerplate = BoilerplateRepository::findForBoilerplateType($request->packageType);
 
+        if ($request->newsletter) {
+            $boilerplate->subscribeToNewsletter($request->authorEmail);
+        }
+
         return $boilerplate->zip($request->all());
     }
 }

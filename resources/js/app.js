@@ -48,6 +48,15 @@ const app = new Vue({
         state: store.state
     },
 
+    computed: {
+        packageType() {
+            if (this.state.packageType === 'laravel') {
+                return 'Laravel';
+            }
+            return 'PHP';
+        }
+    },
+
     methods: {
         nextStep()
         {

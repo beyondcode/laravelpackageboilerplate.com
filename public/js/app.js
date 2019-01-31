@@ -637,7 +637,9 @@ var store = {
 
         license: 'mit',
 
-        downloadMethod: 'zip'
+        downloadMethod: 'zip',
+
+        newsletter: false
     },
 
     setStep: function setStep(step) {
@@ -678,6 +680,9 @@ var store = {
     },
     setDownloadMethod: function setDownloadMethod(downloadMethod) {
         this.state.downloadMethod = downloadMethod;
+    },
+    setNewsletter: function setNewsletter(newsletter) {
+        this.state.newsletter = newsletter;
     }
 };
 
@@ -1516,6 +1521,15 @@ var app = new Vue({
 
     data: {
         state: __WEBPACK_IMPORTED_MODULE_2__store__["a" /* store */].state
+    },
+
+    computed: {
+        packageType: function packageType() {
+            if (this.state.packageType === 'laravel') {
+                return 'Laravel';
+            }
+            return 'PHP';
+        }
     },
 
     methods: {
@@ -37420,6 +37434,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -37471,6 +37495,8 @@ var render = function() {
   return _c("div", { staticClass: "flex-grow flex flex-col" }, [
     _c("div", { staticClass: "flex-grow flex flex-col" }, [
       _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
       _vm._v(" "),
       _c(
         "div",
@@ -37532,11 +37558,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "pt-16 pb-4 text-2xl" }, [
+    return _c("div", { staticClass: "pt-16 text-2xl" }, [
       _c("h2", [
         _vm._v("Which package do you want to "),
         _c("span", { staticClass: "text-red" }, [_vm._v("build")]),
         _vm._v("?")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "leading-normal text-normal pt-4" }, [
+      _c("p", [
+        _vm._v(
+          "\n                The package boilerplates come with pre-configured continuous integration services out of the box."
+        ),
+        _c("br"),
+        _vm._v(
+          "\n                With Travis-CI, Scrutinizer and StyleCI you can rely on powerful tools for your software quality, automated tests and code styling.\n            "
+        )
       ])
     ])
   }
@@ -37734,6 +37776,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -37757,7 +37809,8 @@ var alphaDash = function alphaDash(value) {
             authorName: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.authorName,
             authorEmail: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.authorEmail,
             license: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.license,
-            packageDescription: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.packageDescription
+            packageDescription: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.packageDescription,
+            newsletter: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.newsletter
         };
     },
 
@@ -37784,6 +37837,15 @@ var alphaDash = function alphaDash(value) {
         }
     },
 
+    computed: {
+        packageType: function packageType() {
+            if (this.state.packageType === 'laravel') {
+                return 'Laravel';
+            }
+            return 'PHP';
+        }
+    },
+
     methods: {
         nextStep: function nextStep() {
             this.$v.$touch();
@@ -37797,6 +37859,7 @@ var alphaDash = function alphaDash(value) {
                 __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].setAuthorEmail(this.authorEmail);
                 __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].setLicense(this.license);
                 __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].setPackageDescription(this.packageDescription);
+                __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].setNewsletter(this.newsletter);
 
                 this.advanceRoute();
             }
@@ -38138,6 +38201,66 @@ var render = function() {
                         }
                       })
                     ]
+                  )
+                ]
+              )
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex flex-col lg:flex-row pb-8" }, [
+          _c("div", { staticClass: "flex flex-col w-full" }, [
+            _c("label", { staticClass: "pb-4", attrs: { for: "newsletter" } }, [
+              _vm._v("Stay in the loop")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.newsletter,
+                    expression: "newsletter"
+                  }
+                ],
+                attrs: { type: "checkbox", id: "newsletter", value: "1" },
+                domProps: {
+                  checked: Array.isArray(_vm.newsletter)
+                    ? _vm._i(_vm.newsletter, "1") > -1
+                    : _vm.newsletter
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.newsletter,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = "1",
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.newsletter = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.newsletter = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.newsletter = $$c
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                { staticClass: "pl-2", attrs: { for: "newsletter" } },
+                [
+                  _vm._v(
+                    "I want to learn more about " +
+                      _vm._s(_vm.packageType) +
+                      " package development."
                   )
                 ]
               )
@@ -39638,6 +39761,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -39687,7 +39819,7 @@ var render = function() {
       _c("div", { staticClass: "leading-normal text-normal pt-8" }, [
         _c("p", { staticClass: "py-4" }, [
           _vm._v(
-            "\n                You have successfully created your next package boilerplate code!\n            "
+            "\n                You have successfully created your package boilerplate code!\n            "
           )
         ]),
         _vm._v(" "),
@@ -39712,19 +39844,21 @@ var render = function() {
                 )
               ]
             )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm._m(1)
-      ])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _vm._m(2)
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "flex" }, [
-      _c("div", { staticClass: "flex w-full self-end flex-col" }, [
+      _c("div", { staticClass: "flex w-full flex-col" }, [
         _c(
           "div",
           {
             staticClass:
-              "cursor-pointer self-end bg-red px-4 h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+              "cursor-pointer bg-blue-darkest px-4 h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
             on: { click: _vm.restart }
           },
           [_vm._v("\n                Create another package\n            ")]
@@ -39750,23 +39884,28 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "py-4" }, [
-      _vm._v(
-        "\n                You have successfully created your next package boilerplate code!"
-      ),
-      _c("br"),
-      _vm._v(
-        "\n                If you still feel like you could use some help with your package, take a look at my "
-      ),
+    return _c("div", { staticClass: "pt-16 text-2xl" }, [
+      _c("h2", [
+        _vm._v("Need some help with the "),
+        _c("span", { staticClass: "text-red" }, [_vm._v("next steps")]),
+        _vm._v("?")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "leading-normal text-normal pt-8" }, [
       _c(
         "a",
         {
-          staticClass: "text-white",
-          attrs: { href: "https://www.phppackagedevelopment.com" }
+          staticClass:
+            "no-underline text-white cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+          attrs: { href: "https://phppackagedevelopment.com" }
         },
-        [_vm._v("PHP Package Development")]
-      ),
-      _vm._v(" video course.\n            ")
+        [_vm._v("\n                Learn more\n            ")]
+      )
     ])
   }
 ]

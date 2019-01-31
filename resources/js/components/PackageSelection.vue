@@ -1,9 +1,19 @@
 <template>
     <div class="flex-grow flex flex-col">
         <div class="flex-grow flex flex-col">
-            <div class="pt-16 pb-4 text-2xl">
+            <div class="pt-16 text-2xl">
                 <h2>Which package do you want to <span class="text-red">build</span>?</h2>
             </div>
+
+            <div class="leading-normal text-normal pt-4">
+
+                <p>
+                    The package boilerplates come with pre-configured continuous integration services out of the box.<br>
+                    With Travis-CI, Scrutinizer and StyleCI you can rely on powerful tools for your software quality, automated tests and code styling.
+                </p>
+
+            </div>
+
 
             <div class="flex flex-col md:flex-row flex-grow justify-center items-center">
 

@@ -17,6 +17,8 @@ export const store = {
         license: 'mit',
 
         downloadMethod: 'zip',
+
+        newsletter: false,
     },
 
     setStep(step) {
@@ -67,5 +69,9 @@ export const store = {
 
     setDownloadMethod(downloadMethod) {
         this.state.downloadMethod = downloadMethod;
+    },
+
+    setNewsletter(newsletter) {
+        this.state.newsletter= newsletter;
     },
 };

@@ -8,7 +8,7 @@
             <div class="leading-normal text-normal pt-8">
 
                 <p class="py-4">
-                    You have successfully created your next package boilerplate code!
+                    You have successfully created your package boilerplate code!
                 </p>
 
                 <a v-if="state.downloadMethod === 'github'"
@@ -18,17 +18,26 @@
                     Access GitHub repository
                 </a>
 
-                <p class="py-4">
-                    You have successfully created your next package boilerplate code!<br>
-                    If you still feel like you could use some help with your package, take a look at my <a class="text-white" href="https://www.phppackagedevelopment.com">PHP Package Development</a> video course.
-                </p>
+            </div>
+
+            <div class="pt-16 text-2xl">
+                <h2>Need some help with the <span class="text-red">next steps</span>?</h2>
+            </div>
+
+            <div class="leading-normal text-normal pt-8">
+
+                <a
+                   class="no-underline text-white cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase"
+                   href="https://phppackagedevelopment.com">
+                    Learn more
+                </a>
 
             </div>
         </div>
 
         <div class="flex">
-            <div class="flex w-full self-end flex-col">
-                <div class="cursor-pointer self-end bg-red px-4 h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="restart">
+            <div class="flex w-full flex-col">
+                <div class="cursor-pointer bg-blue-darkest px-4 h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="restart">
                     Create another package
                 </div>
             </div>

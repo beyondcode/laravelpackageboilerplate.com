@@ -2,6 +2,7 @@
 
 namespace App\Boilerplates;
 
+use DrewM\MailChimp\MailChimp;
 use Github\Client;
 use Gitonomy\Git\Repository;
 use GitWrapper\GitWrapper;
@@ -60,6 +61,16 @@ abstract class BaseBoilerplate implements Boilerplate
             }
 
         }
+    }
+
+    public function subscribeToNewsletter($email)
+    {
+        $mailchimp = new MailChimp(config('services.mailchimp.key'));
+
+        $mailchimp->post("lists/".config('services.mailchimp.list_id')."/members", [
+            'email_address' => $email,
+            'status'        => 'pending',
+        ]);
     }
 
     public function getLicense($licenseName): string
