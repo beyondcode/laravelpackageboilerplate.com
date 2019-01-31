@@ -8,7 +8,21 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} - Kickstart your next package</title>
+
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:creator" content="@marcelpociot"/>
+    <meta name="twitter:site" content="@marcelpociot"/>
+    <meta name="twitter:title" content="PHP Package Boilerplate"/>
+    <meta name="twitter:description"
+          content="Get started with your next PHP/Laravel package in no time with this package boilerplate generator."/>
+
+    <meta property="og:url" content="https://phppackageboilerplate.com"/>
+    <meta property="og:type" content="product"/>
+    <meta property="og:title" content="PHP Package Boilerplate"/>
+    <meta property="og:description"
+          content="Get started with your next PHP/Laravel package in no time with this package boilerplate generator."/>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
