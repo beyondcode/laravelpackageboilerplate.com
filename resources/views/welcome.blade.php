@@ -15,6 +15,10 @@
 
     <script>
         window.user = {!! json_encode($user) !!};
+
+        @if (request('github') === 'auth')
+            window.step = 2;
+        @endif
     </script>
 </head>
 <body class="bg-grey-lighter font-sans font-normal antialiased h-full w-full">

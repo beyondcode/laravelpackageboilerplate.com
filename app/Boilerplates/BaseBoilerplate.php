@@ -2,6 +2,10 @@
 
 namespace App\Boilerplates;
 
+use Github\Client;
+use Gitonomy\Git\Repository;
+use GitWrapper\GitWrapper;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -62,5 +66,56 @@ abstract class BaseBoilerplate implements Boilerplate
 
             $zip->finish();
         });
+    }
+
+    public function github(array $input)
+    {
+        $path = $this->path();
+
+        $pathname = str_replace(storage_path(), '', $path);
+
+        $token = auth()->user()->github_token;
+
+        try {
+            $this->writeToDisk($path, $input);
+
+            $githubClient = new Client();
+
+            $githubClient->authenticate($token, null, Client::AUTH_HTTP_TOKEN);
+
+            $repo = $githubClient->api('repo')
+                ->create($input['packageName'], $input['packageDescription']);
+
+            $repositoryUrl = "https://{$repo['owner']['login']}:{$token}@github.com/{$repo['full_name']}.git";
+
+            $gitWrapper = new GitWrapper(config('git.executable'));
+
+            $git = $gitWrapper->workingCopy($path);
+
+            $git->init();
+
+            $git->remote('add', 'origin', $repositoryUrl);
+
+            $git->add('.');
+
+            $git->config('user.name', 'PHP Package Boilerplate');
+            $git->config('user.email', 'hello@beyondco.de');
+
+            $args = [
+                'm' => 'Another awesome package 📦',
+                'a' => true,
+                'author' => 'PHP Package Boilerplate <hello@beyondco.de>'
+            ];
+
+            $git->commit($args);
+
+            $git->push('origin', 'master');
+
+            Storage::disk('base')->deleteDirectory($pathname);
+        } catch (\Exception $e) {
+            Storage::disk('base')->deleteDirectory($pathname);
+
+            throw($e);
+        }
     }
 }

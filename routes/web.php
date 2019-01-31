@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\CreateBoilerplateRepository;
 use App\Http\Controllers\DownloadBoilerplate;
 use App\Http\Controllers\RedirectFromGithub;
 use App\Http\Controllers\RedirectToGithub;
@@ -26,3 +27,4 @@ Route::get('/', function () {
 Route::get('/auth/github', RedirectToGithub::class);
 Route::get('/auth/github/callback', RedirectFromGithub::class);
 Route::post('/boilerplate', DownloadBoilerplate::class);
+Route::post('/boilerplate/github', CreateBoilerplateRepository::class);

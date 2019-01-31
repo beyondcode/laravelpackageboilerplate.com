@@ -78,7 +78,7 @@
     import { store } from './../store';
     import { routes } from './../routes';
 
-    const alphaDash = (value) => value !== null && value.search(/^[a-zA-Z0-9-_]+$/) !== -1;
+    const alphaDash = (value) => value !== null && value && value.search(/^[a-zA-Z0-9-_]+$/) !== -1;
 
     export default {
         name: "PackageDetails",

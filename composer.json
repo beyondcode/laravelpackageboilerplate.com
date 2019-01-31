@@ -9,12 +9,16 @@
     "license": "MIT",
     "require": {
         "php": "^7.1.3",
+        "cpliakas/git-wrapper": "^2.1",
         "fideloper/proxy": "^4.0",
+        "gitonomy/gitlib": "^1.0",
+        "knplabs/github-api": "^2.11",
         "laravel-frontend-presets/tailwindcss": "^0.7.0",
         "laravel/framework": "5.7.*",
         "laravel/socialite": "^4.0",
         "laravel/tinker": "^1.0",
         "maennchen/zipstream-php": "v1.0.0-alpha.2",
+        "php-http/guzzle6-adapter": "^1.1",
         "socialiteproviders/github": "dev-master"
     },
     "require-dev": {

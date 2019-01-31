@@ -14,11 +14,15 @@
                     Download ZIP
                 </div>
 
-                <div class="hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center"
+                <div class="hover:text-red cursor-pointer mr-8 flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center text-center"
+                     v-if="user.id"
                      :class="{'text-red': state.downloadMethod === 'github'}"
                      @click="selectDownloadMethod('github')"
                 >
-                    Create repo
+                    <p class="text-3xl font-bold" v-if="! error">Create repo</p>
+                    <p class="text-xl font-bold text-center" v-else>
+                        <span class="text-red">Oh no</span>!<br>Something went wrong.<br>Please download your package instead.
+                    </p>
                 </div>
 
             </div>
@@ -31,9 +35,18 @@
                 </div>
             </div>
             <div class="flex w-full self-end flex-col">
-                <div class="cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="createPackage">
+                <div
+                        :disabled="busy"
+                        :class="{'opacity-50': busy}"
+                        class="text-white cursor-pointer self-end bg-red h-16 px-4 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="downloadZip" v-if="state.downloadMethod === 'zip'">
                     Download
                 </div>
+                <button
+                        :disabled="busy"
+                        :class="{'opacity-50': busy}"
+                        class="text-white cursor-pointer self-end bg-red h-16 px-4 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="createRepository" v-if="state.downloadMethod === 'github'">
+                    Create public GitHub repository
+                </button>
             </div>
         </div>
     </div>
@@ -49,6 +62,9 @@
 
         data() {
             return {
+                error: false,
+                user: window.user,
+                busy: false,
                 state: store.state,
             };
         },
@@ -58,14 +74,18 @@
                 store.setDownloadMethod(downloadMethod);
             },
 
-            createPackage()
+            downloadZip()
             {
+                this.busy = true;
+
                 axios({
                     url: '/boilerplate',
                     method: 'POST',
                     responseType: 'blob',
                     data: store.state,
                 }).then((response) => {
+                        this.busy = false;
+
                         const url = window.URL.createObjectURL(new Blob([response.data]));
 
                         const link = document.createElement('a');
@@ -75,7 +95,26 @@
                         document.body.appendChild(link);
 
                         link.click();
+                    }).catch(error => {
+                        this.busy = false;
+                        this.error = true;
                     });
+            },
+
+            createRepository()
+            {
+                this.busy = true;
+
+                axios({
+                    url: '/boilerplate/github',
+                    method: 'POST',
+                    data: store.state,
+                }).then((response) => {
+                    this.busy = false;
+                }).catch(error => {
+                    this.busy = false;
+                    this.error = true;
+                });
             },
 
             previousStep()

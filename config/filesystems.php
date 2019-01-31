@@ -48,6 +48,16 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'base' => [
+            'driver' => 'local',
+            'root' => storage_path(),
+        ],
+
+        'boilerplates' => [
+            'driver' => 'local',
+            'root' => storage_path('app/boilerplates'),
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

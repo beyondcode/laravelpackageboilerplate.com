@@ -24,7 +24,7 @@ class RedirectFromGithub extends Controller
 
         $request->session()->put('github_token', $user->token);
 
-        return redirect('/');
+        return redirect('/?github=auth');
     }
 
     /**
@@ -40,6 +40,7 @@ class RedirectFromGithub extends Controller
         ],[
             'name' => $githubUser->name,
             'nickname' => $githubUser->nickname,
+            'github_token' => $githubUser->token,
             'email' => $githubUser->email,
             'avatar' => $githubUser->avatar
         ]);

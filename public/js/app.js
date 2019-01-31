@@ -621,17 +621,17 @@ module.exports = function normalizeComponent (
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return store; });
 var store = {
     state: {
-        step: parseInt(localStorage.getItem('step')) || 1,
+        step: parseInt(window.step) || 1,
 
         packageType: localStorage.getItem('packageType') || 'laravel',
 
         packageName: '',
 
-        vendorName: window.user.nickname,
+        vendorName: window.user.nickname || '',
 
-        authorName: window.user.name,
+        authorName: window.user.name || '',
 
-        authorEmail: window.user.email,
+        authorEmail: window.user.email || '',
 
         packageDescription: '',
 
@@ -37729,7 +37729,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 var alphaDash = function alphaDash(value) {
-    return value !== null && value.search(/^[a-zA-Z0-9-_]+$/) !== -1;
+    return value !== null && value && value.search(/^[a-zA-Z0-9-_]+$/) !== -1;
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -39154,6 +39154,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -39164,6 +39177,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
+            error: false,
+            user: window.user,
+            busy: false,
             state: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state
         };
     },
@@ -39173,8 +39189,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         selectDownloadMethod: function selectDownloadMethod(downloadMethod) {
             __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].setDownloadMethod(downloadMethod);
         },
-        createPackage: function createPackage() {
+        downloadZip: function downloadZip() {
             var _this = this;
+
+            this.busy = true;
 
             __WEBPACK_IMPORTED_MODULE_0_axios___default()({
                 url: '/boilerplate',
@@ -39182,6 +39200,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 responseType: 'blob',
                 data: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state
             }).then(function (response) {
+                _this.busy = false;
+
                 var url = window.URL.createObjectURL(new Blob([response.data]));
 
                 var link = document.createElement('a');
@@ -39191,6 +39211,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 document.body.appendChild(link);
 
                 link.click();
+            }).catch(function (error) {
+                _this.busy = false;
+                _this.error = true;
+            });
+        },
+        createRepository: function createRepository() {
+            var _this2 = this;
+
+            this.busy = true;
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+                url: '/boilerplate/github',
+                method: 'POST',
+                data: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state
+            }).then(function (response) {
+                _this2.busy = false;
+            }).catch(function (error) {
+                _this2.busy = false;
+                _this2.error = true;
             });
         },
         previousStep: function previousStep() {
@@ -39199,10 +39238,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.advanceRoute();
         },
         advanceRoute: function advanceRoute() {
-            var _this2 = this;
+            var _this3 = this;
 
             var route = __WEBPACK_IMPORTED_MODULE_2__routes__["a" /* routes */].filter(function (route) {
-                return route.meta.step === _this2.state.step;
+                return route.meta.step === _this3.state.step;
             }).pop();
 
             this.$router.push(route.path);
@@ -39241,20 +39280,43 @@ var render = function() {
             [_vm._v("\n                Download ZIP\n            ")]
           ),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
-              class: { "text-red": _vm.state.downloadMethod === "github" },
-              on: {
-                click: function($event) {
-                  _vm.selectDownloadMethod("github")
-                }
-              }
-            },
-            [_vm._v("\n                Create repo\n            ")]
-          )
+          _vm.user.id
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "hover:text-red cursor-pointer mr-8 flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center text-center",
+                  class: { "text-red": _vm.state.downloadMethod === "github" },
+                  on: {
+                    click: function($event) {
+                      _vm.selectDownloadMethod("github")
+                    }
+                  }
+                },
+                [
+                  !_vm.error
+                    ? _c("p", { staticClass: "text-3xl font-bold" }, [
+                        _vm._v("Create repo")
+                      ])
+                    : _c(
+                        "p",
+                        { staticClass: "text-xl font-bold text-center" },
+                        [
+                          _c("span", { staticClass: "text-red" }, [
+                            _vm._v("Oh no")
+                          ]),
+                          _vm._v("!"),
+                          _c("br"),
+                          _vm._v("Something went wrong."),
+                          _c("br"),
+                          _vm._v(
+                            "Please download your package instead.\n                "
+                          )
+                        ]
+                      )
+                ]
+              )
+            : _vm._e()
         ]
       )
     ]),
@@ -39273,15 +39335,37 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "flex w-full self-end flex-col" }, [
-        _c(
-          "div",
-          {
-            staticClass:
-              "cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
-            on: { click: _vm.createPackage }
-          },
-          [_vm._v("\n                Download\n            ")]
-        )
+        _vm.state.downloadMethod === "zip"
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "text-white cursor-pointer self-end bg-red h-16 px-4 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+                class: { "opacity-50": _vm.busy },
+                attrs: { disabled: _vm.busy },
+                on: { click: _vm.downloadZip }
+              },
+              [_vm._v("\n                Download\n            ")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.state.downloadMethod === "github"
+          ? _c(
+              "button",
+              {
+                staticClass:
+                  "text-white cursor-pointer self-end bg-red h-16 px-4 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+                class: { "opacity-50": _vm.busy },
+                attrs: { disabled: _vm.busy },
+                on: { click: _vm.createRepository }
+              },
+              [
+                _vm._v(
+                  "\n                Create public GitHub repository\n            "
+                )
+              ]
+            )
+          : _vm._e()
       ])
     ])
   ])

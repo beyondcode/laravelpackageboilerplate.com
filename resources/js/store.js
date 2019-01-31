@@ -1,16 +1,16 @@
 export const store = {
     state: {
-        step: parseInt(localStorage.getItem('step')) || 1,
+        step: parseInt(window.step) || 1,
 
         packageType: localStorage.getItem('packageType') || 'laravel',
 
         packageName: '',
 
-        vendorName: window.user.nickname,
+        vendorName: window.user.nickname || '',
 
-        authorName: window.user.name,
+        authorName: window.user.name || '',
 
-        authorEmail: window.user.email,
+        authorEmail: window.user.email || '',
 
         packageDescription: '',
 
