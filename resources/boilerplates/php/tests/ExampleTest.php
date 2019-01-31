@@ -1,6 +1,6 @@
 <?php
 
-namespace BeyondCode\Skeleton\Tests;
+namespace :vendor_namespace\Skeleton\Tests;
 
 use PHPUnit\Framework\TestCase;
 

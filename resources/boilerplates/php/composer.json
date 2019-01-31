@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            ":vendorNamespace\\Skeleton\\": "src"
+            ":vendor_namespace_escaped\\Skeleton\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            ":vendorNamespace\\Skeleton\\Tests\\": "tests"
+            ":vendor_namespace_escaped\\Skeleton\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -42,10 +42,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                ":vendorNamespace\\Skeleton\\SkeletonServiceProvider"
+                ":vendor_namespace_escaped\\Skeleton\\SkeletonServiceProvider"
             ],
             "aliases": {
-                "Skeleton": ":vendorNamespace\\Skeleton\\SkeletonFacade"
+                "Skeleton": ":vendor_namespace\\Skeleton\\SkeletonFacade"
             }
         }
     }

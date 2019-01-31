@@ -14,6 +14,7 @@
         "laravel/framework": "5.7.*",
         "laravel/socialite": "^4.0",
         "laravel/tinker": "^1.0",
+        "maennchen/zipstream-php": "v1.0.0-alpha.2",
         "socialiteproviders/github": "dev-master"
     },
     "require-dev": {

@@ -625,13 +625,19 @@ var store = {
 
         packageType: localStorage.getItem('packageType') || 'laravel',
 
-        packageName: localStorage.getItem('packageName'),
+        packageName: '',
 
-        vendorName: localStorage.getItem('vendorName') || window.user.nickname,
+        vendorName: window.user.nickname,
 
-        authorName: localStorage.getItem('authorName') || window.user.name,
+        authorName: window.user.name,
 
-        authorEmail: localStorage.getItem('authorEmail') || window.user.email
+        authorEmail: window.user.email,
+
+        packageDescription: '',
+
+        license: 'MIT',
+
+        downloadMethod: 'zip'
     },
 
     setStep: function setStep(step) {
@@ -651,6 +657,27 @@ var store = {
         this.state.packageType = packageType;
 
         localStorage.setItem('packageType', this.state.packageType);
+    },
+    setVendorName: function setVendorName(vendorName) {
+        this.state.vendorName = vendorName;
+    },
+    setPackageName: function setPackageName(packageName) {
+        this.state.packageName = packageName;
+    },
+    setAuthorName: function setAuthorName(authorName) {
+        this.state.authorName = authorName;
+    },
+    setAuthorEmail: function setAuthorEmail(authorEmail) {
+        this.state.authorEmail = authorEmail;
+    },
+    setPackageDescription: function setPackageDescription(packageDescription) {
+        this.state.packageDescription = packageDescription;
+    },
+    setLicense: function setLicense(license) {
+        this.state.license = license;
+    },
+    setDownloadMethod: function setDownloadMethod(downloadMethod) {
+        this.state.downloadMethod = downloadMethod;
     }
 };
 
@@ -37718,8 +37745,8 @@ var alphaDash = function alphaDash(value) {
             packageName: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.packageName,
             authorName: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.authorName,
             authorEmail: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.authorEmail,
-            license: 'MIT',
-            packageDescription: ''
+            license: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.license,
+            packageDescription: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state.packageDescription
         };
     },
 
@@ -37752,6 +37779,13 @@ var alphaDash = function alphaDash(value) {
 
             if (!this.$v.$invalid) {
                 __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].increaseStep();
+
+                __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].setVendorName(this.vendorName);
+                __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].setPackageName(this.packageName);
+                __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].setAuthorName(this.authorName);
+                __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].setAuthorEmail(this.authorEmail);
+                __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].setLicense(this.license);
+                __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].setPackageDescription(this.packageDescription);
 
                 this.advanceRoute();
             }
@@ -39075,8 +39109,10 @@ exports.push([module.i, "\n", ""]);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routes__ = __webpack_require__(93);
 //
 //
 //
@@ -39118,6 +39154,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -39127,31 +39164,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            state: __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state,
-            packageName: __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state.packageName
+            state: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state
         };
     },
 
 
     methods: {
-        selectPackageType: function selectPackageType(packageType) {
-            __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].setPackageType(packageType);
+        selectDownloadMethod: function selectDownloadMethod(downloadMethod) {
+            __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].setDownloadMethod(downloadMethod);
         },
-        nextStep: function nextStep() {
-            __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].increaseStep();
+        createPackage: function createPackage() {
+            var _this = this;
 
-            this.advanceRoute();
+            __WEBPACK_IMPORTED_MODULE_0_axios___default()({
+                url: '/boilerplate',
+                method: 'POST',
+                responseType: 'blob',
+                data: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state
+            }).then(function (response) {
+                var url = window.URL.createObjectURL(new Blob([response.data]));
+
+                var link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', _this.state.packageName + '.zip');
+
+                document.body.appendChild(link);
+
+                link.click();
+            });
         },
         previousStep: function previousStep() {
-            __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].decreaseStep();
+            __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].decreaseStep();
 
             this.advanceRoute();
         },
         advanceRoute: function advanceRoute() {
-            var _this = this;
+            var _this2 = this;
 
-            var route = __WEBPACK_IMPORTED_MODULE_1__routes__["a" /* routes */].filter(function (route) {
-                return route.meta.step === _this.state.step;
+            var route = __WEBPACK_IMPORTED_MODULE_2__routes__["a" /* routes */].filter(function (route) {
+                return route.meta.step === _this2.state.step;
             }).pop();
 
             this.$router.push(route.path);
@@ -39180,10 +39231,10 @@ var render = function() {
             {
               staticClass:
                 "hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
-              class: { "text-red": _vm.state.packageType === "laravel" },
+              class: { "text-red": _vm.state.downloadMethod === "zip" },
               on: {
                 click: function($event) {
-                  _vm.selectPackageType("laravel")
+                  _vm.selectDownloadMethod("zip")
                 }
               }
             },
@@ -39195,10 +39246,10 @@ var render = function() {
             {
               staticClass:
                 "hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
-              class: { "text-red": _vm.state.packageType === "php" },
+              class: { "text-red": _vm.state.downloadMethod === "github" },
               on: {
                 click: function($event) {
-                  _vm.selectPackageType("php")
+                  _vm.selectDownloadMethod("github")
                 }
               }
             },
@@ -39221,7 +39272,17 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(1)
+      _c("div", { staticClass: "flex w-full self-end flex-col" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+            on: { click: _vm.createPackage }
+          },
+          [_vm._v("\n                Download\n            ")]
+        )
+      ])
     ])
   ])
 }
@@ -39236,21 +39297,6 @@ var staticRenderFns = [
         _c("span", { staticClass: "text-red" }, [_vm._v("done")]),
         _vm._v("!")
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "flex w-full self-end flex-col" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase"
-        },
-        [_vm._v("\n                Download\n            ")]
-      )
     ])
   }
 ]

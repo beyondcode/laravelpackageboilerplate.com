@@ -8,15 +8,15 @@
             <div class="flex flex-row flex-grow justify-center items-center">
 
                 <div class="hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center"
-                     :class="{'text-red': state.packageType === 'laravel'}"
-                     @click="selectPackageType('laravel')"
+                     :class="{'text-red': state.downloadMethod === 'zip'}"
+                     @click="selectDownloadMethod('zip')"
                 >
                     Download ZIP
                 </div>
 
                 <div class="hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center"
-                     :class="{'text-red': state.packageType === 'php'}"
-                     @click="selectPackageType('php')"
+                     :class="{'text-red': state.downloadMethod === 'github'}"
+                     @click="selectDownloadMethod('github')"
                 >
                     Create repo
                 </div>
@@ -31,7 +31,7 @@
                 </div>
             </div>
             <div class="flex w-full self-end flex-col">
-                <div class="cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase">
+                <div class="cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="createPackage">
                     Download
                 </div>
             </div>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+    import axios from 'axios';
     import { store } from './../store';
     import { routes } from './../routes';
 
@@ -49,20 +50,32 @@
         data() {
             return {
                 state: store.state,
-                packageName: store.state.packageName,
             };
         },
 
         methods: {
-            selectPackageType(packageType) {
-                store.setPackageType(packageType);
+            selectDownloadMethod(downloadMethod) {
+                store.setDownloadMethod(downloadMethod);
             },
 
-            nextStep()
+            createPackage()
             {
-                store.increaseStep();
+                axios({
+                    url: '/boilerplate',
+                    method: 'POST',
+                    responseType: 'blob',
+                    data: store.state,
+                }).then((response) => {
+                        const url = window.URL.createObjectURL(new Blob([response.data]));
 
-                this.advanceRoute();
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.setAttribute('download', `${this.state.packageName}.zip`);
+
+                        document.body.appendChild(link);
+
+                        link.click();
+                    });
             },
 
             previousStep()

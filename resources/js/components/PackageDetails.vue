@@ -74,7 +74,7 @@
 </template>
 
 <script>
-    import { required, email } from 'vuelidate/lib/validators'
+    import { required, email, alpha } from 'vuelidate/lib/validators'
     import { store } from './../store';
     import { routes } from './../routes';
 
@@ -93,8 +93,8 @@
                 packageName: store.state.packageName,
                 authorName: store.state.authorName,
                 authorEmail: store.state.authorEmail,
-                license: 'MIT',
-                packageDescription: ''
+                license: store.state.license,
+                packageDescription: store.state.packageDescription
             };
         },
 
@@ -127,6 +127,13 @@
 
                 if (! this.$v.$invalid) {
                     store.increaseStep();
+
+                    store.setVendorName(this.vendorName);
+                    store.setPackageName(this.packageName);
+                    store.setAuthorName(this.authorName);
+                    store.setAuthorEmail(this.authorEmail);
+                    store.setLicense(this.license);
+                    store.setPackageDescription(this.packageDescription);
 
                     this.advanceRoute();
                 }

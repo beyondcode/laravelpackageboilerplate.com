@@ -4,13 +4,19 @@ export const store = {
 
         packageType: localStorage.getItem('packageType') || 'laravel',
 
-        packageName: localStorage.getItem('packageName'),
+        packageName: '',
 
-        vendorName: localStorage.getItem('vendorName') || window.user.nickname,
+        vendorName: window.user.nickname,
 
-        authorName: localStorage.getItem('authorName') || window.user.name,
+        authorName: window.user.name,
 
-        authorEmail: localStorage.getItem('authorEmail') || window.user.email,
+        authorEmail: window.user.email,
+
+        packageDescription: '',
+
+        license: 'MIT',
+
+        downloadMethod: 'zip',
     },
 
     setStep(step) {
@@ -33,5 +39,33 @@ export const store = {
         this.state.packageType = packageType;
 
         localStorage.setItem('packageType', this.state.packageType);
-    }
+    },
+
+    setVendorName(vendorName) {
+        this.state.vendorName = vendorName;
+    },
+
+    setPackageName(packageName) {
+        this.state.packageName = packageName;
+    },
+
+    setAuthorName(authorName) {
+        this.state.authorName = authorName;
+    },
+
+    setAuthorEmail(authorEmail) {
+        this.state.authorEmail = authorEmail;
+    },
+
+    setPackageDescription(packageDescription) {
+        this.state.packageDescription = packageDescription;
+    },
+
+    setLicense(license) {
+        this.state.license = license;
+    },
+
+    setDownloadMethod(downloadMethod) {
+        this.state.downloadMethod = downloadMethod;
+    },
 };

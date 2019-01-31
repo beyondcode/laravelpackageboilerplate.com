@@ -42,7 +42,7 @@ If you discover any security related issues, please email :author_email instead 
 
 ## Credits
 
-- [Marcel Pociot](https://github.com/:author_username)
+- [:author_name](https://github.com/:vendor)
 - [All Contributors](../../contributors)
 
 ## License

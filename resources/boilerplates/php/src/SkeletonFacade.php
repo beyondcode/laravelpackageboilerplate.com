@@ -1,11 +1,11 @@
 <?php
 
-namespace BeyondCode\Skeleton;
+namespace :vendor_namespace\Skeleton;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \BeyondCode\Skeleton\SkeletonClass
+ * @see \:vendor_namespace\Skeleton\SkeletonClass
  */
 class SkeletonFacade extends Facade
 {

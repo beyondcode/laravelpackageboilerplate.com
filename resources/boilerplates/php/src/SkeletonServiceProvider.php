@@ -1,6 +1,6 @@
 <?php
 
-namespace BeyondCode\Skeleton;
+namespace :vendor_namespace\Skeleton;
 
 use Illuminate\Support\ServiceProvider;
 
