@@ -11,6 +11,7 @@ class BoilerplateRepository
     {
         return collect([
             new Laravel(),
+            new Php()
         ]);
     }
 

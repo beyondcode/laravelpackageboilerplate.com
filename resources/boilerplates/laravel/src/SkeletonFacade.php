@@ -1,13 +1,13 @@
 <?php
 
-namespace :vendor_namespace\Skeleton;
+namespace :vendor_namespace;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \:vendor_namespace\Skeleton\SkeletonClass
  */
-class SkeletonFacade extends Facade
+class :studly_package_nameFacade extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -16,6 +16,6 @@ class SkeletonFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'skeleton';
+        return ':package_name';
     }
 }

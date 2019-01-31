@@ -635,7 +635,7 @@ var store = {
 
         packageDescription: '',
 
-        license: 'MIT',
+        license: 'mit',
 
         downloadMethod: 'zip'
     },
@@ -37474,7 +37474,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "flex flex-row flex-grow justify-center items-center" },
+        {
+          staticClass:
+            "flex flex-col md:flex-row flex-grow justify-center items-center"
+        },
         [
           _c(
             "div",
@@ -37495,7 +37498,7 @@ var render = function() {
             "div",
             {
               staticClass:
-                "hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
+                "hover:text-red cursor-pointer mr-8 md:mt-0 mt-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
               class: { "text-red": _vm.state.packageType === "php" },
               on: {
                 click: function($event) {
@@ -37529,7 +37532,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "pt-16 text-2xl" }, [
+    return _c("div", { staticClass: "pt-16 pb-4 text-2xl" }, [
       _c("h2", [
         _vm._v("Which package do you want to "),
         _c("span", { staticClass: "text-red" }, [_vm._v("build")]),
@@ -37648,6 +37651,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuelidate_lib_validators__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routes__ = __webpack_require__(93);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -38040,9 +38051,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "flex flex-col lg:flex-row pb-8" }, [
           _c("div", { staticClass: "flex flex-col w-full" }, [
-            _c("label", { staticClass: "pb-4", attrs: { for: "license" } }, [
-              _vm._v("License")
-            ]),
+            _vm._m(1),
             _vm._v(" "),
             _c("div", { staticClass: "inline-block relative" }, [
               _c(
@@ -38074,7 +38083,35 @@ var render = function() {
                     }
                   }
                 },
-                [_c("option", { attrs: { value: "MIT" } }, [_vm._v("MIT")])]
+                [
+                  _c("option", { attrs: { value: "mit" } }, [
+                    _vm._v("MIT License")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "agpl-3" } }, [
+                    _vm._v("GNU AGPLv3")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "gpl-3" } }, [
+                    _vm._v("GNU GPLv3")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "lgpl-3" } }, [
+                    _vm._v("GNU LGPLv3")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "mozilla-public-2" } }, [
+                    _vm._v("Mozilla Public License 2.0")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "apache-2" } }, [
+                    _vm._v("Apache License 2.0")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "unlicense" } }, [
+                    _vm._v("The Unlicense")
+                  ])
+                ]
               ),
               _vm._v(" "),
               _c(
@@ -38147,6 +38184,22 @@ var staticRenderFns = [
         _vm._v("Fill in some package "),
         _c("span", { staticClass: "text-red" }, [_vm._v("details")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "pb-4", attrs: { for: "license" } }, [
+      _vm._v("License\n                        "),
+      _c(
+        "a",
+        {
+          staticClass: "no-underline text-white",
+          attrs: { href: "https://choosealicense.com", target: "_blank" }
+        },
+        [_vm._v("[?]")]
+      )
     ])
   }
 ]
@@ -39167,6 +39220,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -39211,6 +39272,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 document.body.appendChild(link);
 
                 link.click();
+
+                _this.nextStep();
             }).catch(function (error) {
                 _this.busy = false;
                 _this.error = true;
@@ -39227,6 +39290,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 data: __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].state
             }).then(function (response) {
                 _this2.busy = false;
+
+                _this2.nextStep();
             }).catch(function (error) {
                 _this2.busy = false;
                 _this2.error = true;
@@ -39234,6 +39299,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         previousStep: function previousStep() {
             __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].decreaseStep();
+
+            this.advanceRoute();
+        },
+        nextStep: function nextStep() {
+            __WEBPACK_IMPORTED_MODULE_1__store__["a" /* store */].increaseStep();
 
             this.advanceRoute();
         },
@@ -39260,6 +39330,8 @@ var render = function() {
   return _c("div", { staticClass: "flex-grow flex flex-col" }, [
     _c("div", { staticClass: "flex-grow flex flex-col" }, [
       _vm._m(0),
+      _vm._v(" "),
+      _vm._m(1),
       _vm._v(" "),
       _c(
         "div",
@@ -39382,6 +39454,18 @@ var staticRenderFns = [
         _vm._v("!")
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "leading-normal text-normal pt-8" }, [
+      _c("p", [
+        _vm._v(
+          "\n                How do you want to retrieve your package code?\n            "
+        )
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -39399,17 +39483,298 @@ if (false) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return routes; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_PackageSelection_vue__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_PackageSelection_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_PackageSelection_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_PackageDetails_vue__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_PackageDetails_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_PackageDetails_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_PackageDownload_vue__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_PackageDownload_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_PackageDownload_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_PackageSelection__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_PackageSelection___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_PackageSelection__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_PackageDetails__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_PackageDetails___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_PackageDetails__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_PackageDownload__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_PackageDownload___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_PackageDownload__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Finished__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_Finished___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__components_Finished__);
 
 
 
 
-var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_PackageSelection_vue___default.a, meta: { step: 1 } }, { path: '/package-details', component: __WEBPACK_IMPORTED_MODULE_1__components_PackageDetails_vue___default.a, meta: { step: 2 } }, { path: '/package-download', component: __WEBPACK_IMPORTED_MODULE_2__components_PackageDownload_vue___default.a, meta: { step: 3 } }];
+
+var routes = [{ path: '/', component: __WEBPACK_IMPORTED_MODULE_0__components_PackageSelection___default.a, meta: { step: 1 } }, { path: '/package-details', component: __WEBPACK_IMPORTED_MODULE_1__components_PackageDetails___default.a, meta: { step: 2 } }, { path: '/package-download', component: __WEBPACK_IMPORTED_MODULE_2__components_PackageDownload___default.a, meta: { step: 3 } }, { path: '/finished', component: __WEBPACK_IMPORTED_MODULE_3__components_Finished___default.a, meta: { step: 4 } }];
+
+/***/ }),
+/* 94 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(95)
+}
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(97)
+/* template */
+var __vue_template__ = __webpack_require__(98)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-43d36646"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/Finished.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-43d36646", Component.options)
+  } else {
+    hotAPI.reload("data-v-43d36646", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(96);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(12)("08f76f6b", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-43d36646\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Finished.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-43d36646\",\"scoped\":true,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Finished.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(11)(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 97 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routes__ = __webpack_require__(93);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: "Finished",
+
+    data: function data() {
+        return {
+            user: window.user,
+
+            state: __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].state
+        };
+    },
+
+
+    methods: {
+        restart: function restart() {
+            __WEBPACK_IMPORTED_MODULE_0__store__["a" /* store */].setStep(1);
+
+            this.advanceRoute();
+        },
+        advanceRoute: function advanceRoute() {
+            var _this = this;
+
+            var route = __WEBPACK_IMPORTED_MODULE_1__routes__["a" /* routes */].filter(function (route) {
+                return route.meta.step === _this.state.step;
+            }).pop();
+
+            this.$router.push(route.path);
+        }
+    }
+});
+
+/***/ }),
+/* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "flex-grow flex flex-col" }, [
+    _c("div", { staticClass: "flex-grow flex flex-col" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "leading-normal text-normal pt-8" }, [
+        _c("p", { staticClass: "py-4" }, [
+          _vm._v(
+            "\n                You have successfully created your next package boilerplate code!\n            "
+          )
+        ]),
+        _vm._v(" "),
+        _vm.state.downloadMethod === "github"
+          ? _c(
+              "a",
+              {
+                staticClass:
+                  "no-underline text-white cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+                attrs: {
+                  target: "_blank",
+                  href:
+                    "https://github.com/" +
+                    _vm.state.vendorName +
+                    "/" +
+                    _vm.state.packageName
+                }
+              },
+              [
+                _vm._v(
+                  "\n                Access GitHub repository\n            "
+                )
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm._m(1)
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "flex" }, [
+      _c("div", { staticClass: "flex w-full self-end flex-col" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+            on: { click: _vm.restart }
+          },
+          [_vm._v("\n                Create another package\n            ")]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "pt-16 text-2xl" }, [
+      _c("h2", [
+        _vm._v("Now go and build "),
+        _c("span", { staticClass: "text-red" }, [_vm._v("awesome things")]),
+        _vm._v("!")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "py-4" }, [
+      _vm._v(
+        "\n                You have successfully created your next package boilerplate code!"
+      ),
+      _c("br"),
+      _vm._v(
+        "\n                If you still feel like you could use some help with your package, take a look at my "
+      ),
+      _c(
+        "a",
+        {
+          staticClass: "text-white",
+          attrs: { href: "https://www.phppackagedevelopment.com" }
+        },
+        [_vm._v("PHP Package Development")]
+      ),
+      _vm._v(" video course.\n            ")
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-43d36646", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

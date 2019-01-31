@@ -18,6 +18,7 @@
         "php": "^7.1"
     },
     "require-dev": {
+        "larapack/dd": "^1.0",
         "phpunit/phpunit": "^7.0"
     },
     "autoload": {
@@ -37,5 +38,15 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                ":vendor_namespace_escaped\\:studly_package_nameServiceProvider"
+            ],
+            "aliases": {
+                "Skeleton": ":vendor_namespace\\:studly_package_nameFacade"
+            }
+        }
     }
 }

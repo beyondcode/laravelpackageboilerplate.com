@@ -5,6 +5,14 @@
                 <h2>You're almost <span class="text-red">done</span>!</h2>
             </div>
 
+            <div class="leading-normal text-normal pt-8">
+
+                <p>
+                    How do you want to retrieve your package code?
+                </p>
+
+            </div>
+
             <div class="flex flex-row flex-grow justify-center items-center">
 
                 <div class="hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center"
@@ -95,6 +103,8 @@
                         document.body.appendChild(link);
 
                         link.click();
+
+                        this.nextStep();
                     }).catch(error => {
                         this.busy = false;
                         this.error = true;
@@ -111,6 +121,8 @@
                     data: store.state,
                 }).then((response) => {
                     this.busy = false;
+
+                    this.nextStep();
                 }).catch(error => {
                     this.busy = false;
                     this.error = true;
@@ -120,6 +132,13 @@
             previousStep()
             {
                 store.decreaseStep();
+
+                this.advanceRoute();
+            },
+
+            nextStep()
+            {
+                store.increaseStep();
 
                 this.advanceRoute();
             },

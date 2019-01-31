@@ -25,9 +25,9 @@
     <div class="w-full h-full lg:p-16" id="packageApp">
         <div class="lg:rounded-xl bg-blue-darker min-h-full w-full flex shadow-lg text-white">
             <div class="flex-grow w-full lg:w-2/3">
-                <div class="px-4 lg:px-16 py-16 flex flex-col h-full">
+                <div class="px-8 lg:px-16 py-16 flex flex-col h-full">
                     <div class="flex items-center">
-                        <h1 class="text-normal uppercase">PHP Package Boilerplate</h1>
+                        <h1 class="text-base md:text-lg uppercase">PHP Package Boilerplate</h1>
                     </div>
 
                     <router-view></router-view>

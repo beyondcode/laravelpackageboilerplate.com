@@ -2,16 +2,17 @@
 
 namespace App\Boilerplates;
 
-class Laravel extends BaseBoilerplate
+
+class Php extends BaseBoilerplate
 {
     public function type(): string
     {
-        return 'laravel';
+        return 'php';
     }
 
     public function location(): string
     {
-        return resource_path('boilerplates/laravel/');
+        return resource_path('boilerplates/php/');
     }
 
 }

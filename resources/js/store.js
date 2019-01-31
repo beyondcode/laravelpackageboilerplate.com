@@ -14,7 +14,7 @@ export const store = {
 
         packageDescription: '',
 
-        license: 'MIT',
+        license: 'mit',
 
         downloadMethod: 'zip',
     },

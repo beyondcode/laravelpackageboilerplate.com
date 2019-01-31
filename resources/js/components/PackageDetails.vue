@@ -44,10 +44,18 @@
 
                 <div class="flex flex-col lg:flex-row pb-8">
                     <div class="flex flex-col w-full">
-                        <label class="pb-4" for="license">License</label>
+                        <label class="pb-4" for="license">License
+                            <a href="https://choosealicense.com" target="_blank" class="no-underline text-white">[?]</a>
+                        </label>
                         <div class="inline-block relative">
                             <select v-model="license" class="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-4 py-4 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline">
-                                <option value="MIT">MIT</option>
+                                <option value="mit">MIT License</option>
+                                <option value="agpl-3">GNU AGPLv3</option>
+                                <option value="gpl-3">GNU GPLv3</option>
+                                <option value="lgpl-3">GNU LGPLv3</option>
+                                <option value="mozilla-public-2">Mozilla Public License 2.0</option>
+                                <option value="apache-2">Apache License 2.0</option>
+                                <option value="unlicense">The Unlicense</option>
                             </select>
                             <div class="pointer-events-none absolute pin-y pin-r flex items-center px-2 text-grey-darker">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>

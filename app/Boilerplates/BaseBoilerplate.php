@@ -13,6 +13,23 @@ use ZipStream\ZipStream;
 
 abstract class BaseBoilerplate implements Boilerplate
 {
+
+    public function replacements(array $input): array
+    {
+        return [
+            ':vendor_namespace_escaped' => studly_case(array_get($input, 'vendorName')) . '\\\\' . studly_case(array_get($input, 'packageName')),
+            ':vendor_namespace' => studly_case(array_get($input, 'vendorName')) . '\\' . studly_case(array_get($input, 'packageName')),
+            ':vendor' => strtolower(array_get($input, 'vendorName')),
+            ':studly_package_name' => studly_case(array_get($input, 'packageName')),
+            ':package_name' => strtolower(array_get($input, 'packageName')),
+            ':package_description' => array_get($input, 'packageDescription'),
+            ':author_username' => array_get($input, 'authorUsername'),
+            ':author_name' => array_get($input, 'authorName'),
+            ':author_email' => array_get($input, 'authorEmail'),
+            ':license_shortname' => $this->getLicenseShortname(array_get($input, 'license')),
+        ];
+    }
+
     public function path(): string
     {
         return storage_path('app/boilerplates/'.str_random().'/');
@@ -35,14 +52,38 @@ abstract class BaseBoilerplate implements Boilerplate
         foreach ($this->getFiles() as $file)
         {
             if ($file->isFile()) {
-                $fileContent = str_replace(array_keys($replacements), array_values($replacements), $file->getContents());
+                $fileContent = str_replace(array_keys($replacements), array_values($replacements), $this->getFileContent($file, $input));
 
-                file_put_contents($path . $file->getRelativePathname(), $fileContent);
+                file_put_contents($path . $this->getFilename($file, $input), $fileContent);
             } else {
                 @mkdir($path . $file->getRelativePathname(), 0755, true);
             }
 
         }
+    }
+
+    public function getLicense($licenseName): string
+    {
+        if (file_exists(resource_path('licenses/'.$licenseName.'.txt'))) {
+            return file_get_contents(resource_path('licenses/'.$licenseName.'.txt'));
+        }
+
+        return '';
+    }
+
+    public function getLicenseShortname($licenseName)
+    {
+        $licenses = [
+            'mit' => 'MIT License (MIT)',
+            'agpl-3' => 'GNU AGPLv',
+            'gpl-3' => 'GNU GPLv3',
+            'lgpl-3' => 'GNU LGPLv',
+            'mozilla-public-2' => 'Mozilla Public License 2.0',
+            'apache-2' => 'Apache License 2',
+            'unlicense' => 'The Unlicense',
+        ];
+
+        return array_get($licenses, $licenseName);
     }
 
     public function zip(array $input)
@@ -56,9 +97,9 @@ abstract class BaseBoilerplate implements Boilerplate
             foreach ($this->getFiles() as $file)
             {
                 if ($file->isFile()) {
-                    $fileContent = str_replace(array_keys($replacements), array_values($replacements), $file->getContents());
+                    $fileContent = str_replace(array_keys($replacements), array_values($replacements), $this->getFileContent($file, $input));
 
-                    $zip->addFile($file->getRelativePathname(), $fileContent);
+                    $zip->addFile($this->getFilename($file, $input), $fileContent);
                 } else {
                     $zip->addFile($file->getRelativePathname().'/', '');
                 }
@@ -117,5 +158,20 @@ abstract class BaseBoilerplate implements Boilerplate
 
             throw($e);
         }
+    }
+
+    protected function getFileContent(SplFileInfo $file, array $input): string
+    {
+        if ($file->getFilename() === 'LICENSE.md') {
+            return $this->getLicense($input['license']);
+        }
+        return $file->getContents();
+    }
+
+    protected function getFilename(SplFileInfo $file, array $input): string
+    {
+        $filename = str_replace('Skeleton', studly_case($input['packageName']), $file->getFilename());
+
+        return $file->getRelativePath() . '/' . $filename;
     }
 }
