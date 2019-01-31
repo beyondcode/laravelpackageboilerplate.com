@@ -13,9 +13,9 @@
 
             </div>
 
-            <div class="flex flex-row flex-grow justify-center items-center">
+            <div class="flex flex-col md:flex-row flex-grow justify-center items-center">
 
-                <div class="hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center"
+                <div class="hover:text-red cursor-pointer mb-8 md:mb-0 mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center"
                      :class="{'text-red': state.downloadMethod === 'zip'}"
                      @click="selectDownloadMethod('zip')"
                 >
@@ -38,7 +38,7 @@
 
         <div class="flex">
             <div class="flex w-full">
-                <div class="cursor-pointer w-1/3 bg-blue-darkest h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="previousStep">
+                <div class="cursor-pointer px-4 md:w-1/3 bg-blue-darkest h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="previousStep">
                     Previous
                 </div>
             </div>
@@ -46,13 +46,13 @@
                 <div
                         :disabled="busy"
                         :class="{'opacity-50': busy}"
-                        class="text-white cursor-pointer self-end bg-red h-16 px-4 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="downloadZip" v-if="state.downloadMethod === 'zip'">
+                        class="px-4 text-white cursor-pointer self-end bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="downloadZip" v-if="state.downloadMethod === 'zip'">
                     Download
                 </div>
                 <button
                         :disabled="busy"
                         :class="{'opacity-50': busy}"
-                        class="text-white cursor-pointer self-end bg-red h-16 px-4 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="createRepository" v-if="state.downloadMethod === 'github'">
+                        class="px-4 text-white cursor-pointer self-end bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="createRepository" v-if="state.downloadMethod === 'github'">
                     Create public GitHub repository
                 </button>
             </div>

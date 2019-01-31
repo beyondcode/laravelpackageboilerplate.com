@@ -37850,7 +37850,7 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "flex flex-col lg:flex-row py-8" }, [
-          _c("div", { staticClass: "flex flex-col w-1/2" }, [
+          _c("div", { staticClass: "flex flex-col lg:w-1/2" }, [
             _c(
               "label",
               {
@@ -37890,7 +37890,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "lg:pl-4 pt-4 lg:pt-0 flex flex-col w-1/2" },
+            { staticClass: "lg:pl-4 pt-4 lg:pt-0 flex flex-col lg:w-1/2" },
             [
               _c(
                 "label",
@@ -37932,7 +37932,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "flex flex-col lg:flex-row pb-8" }, [
-          _c("div", { staticClass: "flex flex-col w-1/2" }, [
+          _c("div", { staticClass: "flex flex-col lg:w-1/2" }, [
             _c(
               "label",
               {
@@ -37972,7 +37972,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "lg:pl-4 pt-4 lg:pt-0 flex flex-col w-1/2" },
+            { staticClass: "lg:pl-4 pt-4 lg:pt-0 flex flex-col lg:w-1/2" },
             [
               _c(
                 "label",
@@ -38153,7 +38153,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "cursor-pointer w-1/3 bg-blue-darkest h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+              "cursor-pointer px-4 md:w-1/3 bg-blue-darkest h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
             on: { click: _vm.previousStep }
           },
           [_vm._v("\n                Previous\n            ")]
@@ -38165,7 +38165,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+              "cursor-pointer self-end px-4 md:w-1/3  bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
             on: { click: _vm.nextStep }
           },
           [_vm._v("\n                Next\n            ")]
@@ -39335,13 +39335,16 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "flex flex-row flex-grow justify-center items-center" },
+        {
+          staticClass:
+            "flex flex-col md:flex-row flex-grow justify-center items-center"
+        },
         [
           _c(
             "div",
             {
               staticClass:
-                "hover:text-red cursor-pointer mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
+                "hover:text-red cursor-pointer mb-8 md:mb-0 mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center",
               class: { "text-red": _vm.state.downloadMethod === "zip" },
               on: {
                 click: function($event) {
@@ -39399,7 +39402,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "cursor-pointer w-1/3 bg-blue-darkest h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+              "cursor-pointer px-4 md:w-1/3 bg-blue-darkest h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
             on: { click: _vm.previousStep }
           },
           [_vm._v("\n                Previous\n            ")]
@@ -39412,7 +39415,7 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "text-white cursor-pointer self-end bg-red h-16 px-4 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+                  "px-4 text-white cursor-pointer self-end bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
                 class: { "opacity-50": _vm.busy },
                 attrs: { disabled: _vm.busy },
                 on: { click: _vm.downloadZip }
@@ -39426,7 +39429,7 @@ var render = function() {
               "button",
               {
                 staticClass:
-                  "text-white cursor-pointer self-end bg-red h-16 px-4 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+                  "px-4 text-white cursor-pointer self-end bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
                 class: { "opacity-50": _vm.busy },
                 attrs: { disabled: _vm.busy },
                 on: { click: _vm.createRepository }
@@ -39721,7 +39724,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
+              "cursor-pointer self-end bg-red px-4 h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase",
             on: { click: _vm.restart }
           },
           [_vm._v("\n                Create another package\n            ")]

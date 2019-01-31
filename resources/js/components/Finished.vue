@@ -28,7 +28,7 @@
 
         <div class="flex">
             <div class="flex w-full self-end flex-col">
-                <div class="cursor-pointer self-end w-1/3 bg-red h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="restart">
+                <div class="cursor-pointer self-end bg-red px-4 h-16 flex justify-center items-center font-bold rounded-sm text-lg uppercase" @click="restart">
                     Create another package
                 </div>
             </div>
