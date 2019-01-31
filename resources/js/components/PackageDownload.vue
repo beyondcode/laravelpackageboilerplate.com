@@ -15,11 +15,12 @@
 
             <div class="flex flex-col md:flex-row flex-grow justify-center items-center">
 
-                <div class="hover:text-red cursor-pointer mb-8 md:mb-0 mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center"
+                <div class="text-center hover:text-red cursor-pointer mb-8 md:mb-0 mr-8 text-3xl font-bold flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center"
                      :class="{'text-red': state.downloadMethod === 'zip'}"
                      @click="selectDownloadMethod('zip')"
                 >
-                    Download ZIP
+                    Download
+                    <br>ZIP
                 </div>
 
                 <div class="hover:text-red cursor-pointer mr-8 flex rounded-lg bg-blue-darkest shadow h-64 w-64 text-white justify-center items-center text-center"
@@ -27,7 +28,7 @@
                      :class="{'text-red': state.downloadMethod === 'github'}"
                      @click="selectDownloadMethod('github')"
                 >
-                    <p class="text-3xl font-bold" v-if="! error">Create repo</p>
+                    <p class="text-3xl font-bold" v-if="! error">Create<br>repository</p>
                     <p class="text-xl font-bold text-center" v-else>
                         <span class="text-red">Oh no</span>!<br>Something went wrong.<br>Please download your package instead.
                     </p>

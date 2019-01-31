@@ -66,8 +66,8 @@
 
                 <div class="flex flex-col lg:flex-row pb-8">
                     <div class="flex flex-col w-full">
-                        <label class="pb-4" for="newsletter">Stay in the loop</label>
-                        <div class="flex">
+                        <h3>Stay in the loop</h3>
+                        <div class="pt-2 flex">
                             <input type="checkbox" id="newsletter" value="1" v-model="newsletter">
                             <label for="newsletter" class="pl-2">I want to learn more about {{ packageType }} package development.</label>
                         </div>

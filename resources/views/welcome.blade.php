@@ -41,7 +41,7 @@
                 <div class="px-8 lg:px-16 py-16 flex flex-col h-full">
                     <div class="flex flex-col md:flex-row items-center justify-between">
                         <h1 class="flex-no-shrink text-base md:text-lg uppercase">Laravel Package Boilerplate</h1>
-                        <div class="md:pt-0 pt-2 uppercase text-right items-center flex font-bold">
+                        <div class="md:pt-0 pt-2 uppercase text-right items-center flex flex-no-shrink font-bold">
                             From
                             <a href="https://beyondco.de" target="_blank"><img class="pl-2 h-8" src="https://beyondco.de/wp-content/uploads/2018/01/bc_logo_weiss.png"></a>
                         </div>
