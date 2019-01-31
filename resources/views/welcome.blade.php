@@ -117,6 +117,10 @@
                 </div>
             </div>
         </div>
+
+        <div class="flex items-center justify-center">
+            <a class="text-black no-underline text-xs pt-4" style="font-size: 0.75em" href="https://beyondco.de/datenschutzbedingungen/">Imprint & Privacy</a>
+        </div>
     </div>
 
     <script src="{{ asset('js/app.js') }}"></script>
