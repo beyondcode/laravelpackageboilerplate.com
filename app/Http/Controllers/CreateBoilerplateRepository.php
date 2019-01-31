@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\BoilerplateRequest;
 use App\Boilerplates\BoilerplateRepository;
 
 class CreateBoilerplateRepository extends Controller
 {
-    /**
-     * Handle the incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function __invoke(Request $request)
+    public function __invoke(BoilerplateRequest $request)
     {
         $boilerplate = BoilerplateRepository::findForBoilerplateType($request->packageType);
 
