@@ -6,7 +6,8 @@
         ":package_name"
     ],
     "homepage": "https://github.com/:vendor/:package_name",
-    "license": "MIT",
+    "license": ":license_shortname",
+    "type": "library",
     "authors": [
         {
             "name": ":author_name",
@@ -16,9 +17,10 @@
     ],
     "require": {
         "php": "^7.1"
+        "illuminate/support": "5.7.*"
     },
     "require-dev": {
-        "illuminate/support": "5.7.*",
+        "orchestra/testbench": "3.7.*",
         "phpunit/phpunit": "^7.0"
     },
     "autoload": {
@@ -45,7 +47,7 @@
                 ":vendor_namespace_escaped\\:studly_package_nameServiceProvider"
             ],
             "aliases": {
-                "Skeleton": ":vendor_namespace\\:studly_package_nameFacade"
+                ":studly_package_name": ":vendor_namespace_escaped\\:studly_package_nameFacade"
             }
         }
     }

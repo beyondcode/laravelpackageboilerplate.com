@@ -150,13 +150,13 @@ abstract class BaseBoilerplate implements Boilerplate
 
             $git->add('.');
 
-            $git->config('user.name', 'PHP Package Boilerplate');
+            $git->config('user.name', 'Laravel Package Boilerplate');
             $git->config('user.email', 'hello@beyondco.de');
 
             $args = [
                 'm' => 'Another awesome package 📦',
                 'a' => true,
-                'author' => 'PHP Package Boilerplate <hello@beyondco.de>'
+                'author' => 'Laravel Package Boilerplate <hello@beyondco.de>'
             ];
 
             $git->commit($args);

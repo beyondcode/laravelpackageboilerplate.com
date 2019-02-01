@@ -6,7 +6,8 @@
         ":package_name"
     ],
     "homepage": "https://github.com/:vendor/:package_name",
-    "license": "MIT",
+    "license": ":license_shortname",
+    "type": "library",
     "authors": [
         {
             "name": ":author_name",
