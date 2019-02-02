@@ -18,8 +18,7 @@ composer require :vendor/:package_name
 ## Usage
 
 ``` php
-$skeleton = new BeyondCode\Skeleton();
-echo $skeleton->echoPhrase('Hello, BeyondCode!');
+// Usage description here
 ```
 
 ### Testing
