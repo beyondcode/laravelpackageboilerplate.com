@@ -2,7 +2,6 @@
 
 namespace App\Boilerplates;
 
-
 class Php extends BaseBoilerplate
 {
     public function type(): string

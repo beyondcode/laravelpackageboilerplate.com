@@ -10,5 +10,4 @@ interface Boilerplate
 
     public function replacements(array $input): array;
 
-
 }

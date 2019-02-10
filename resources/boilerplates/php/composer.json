@@ -6,7 +6,7 @@
         ":package_name"
     ],
     "homepage": "https://github.com/:vendor/:package_name",
-    "license": ":license_shortname",
+    "license": ":license_composer",
     "type": "library",
     "authors": [
         {

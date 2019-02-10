@@ -28,6 +28,7 @@ abstract class BaseBoilerplate implements Boilerplate
             ':author_name' => array_get($input, 'authorName'),
             ':author_email' => array_get($input, 'authorEmail'),
             ':license_shortname' => $this->getLicenseShortname(array_get($input, 'license')),
+            ':license_composer' => $this->getLicenseComposername(array_get($input, 'license')),
         ];
     }
 
@@ -80,6 +81,21 @@ abstract class BaseBoilerplate implements Boilerplate
         }
 
         return '';
+    }
+
+    public function getLicenseComposername($licenseName)
+    {
+        $licenses = [
+            'mit' => 'MIT',
+            'agpl-3' => 'GNU AGPLv',
+            'gpl-3' => 'GPL-2.0-or-later',
+            'lgpl-3' => 'LGPL-3.0-or-later',
+            'mozilla-public-2' => 'Mozilla Public License 2.0',
+            'apache-2' => 'Apache-2.0',
+            'unlicense' => 'The Unlicense',
+        ];
+
+        return array_get($licenses, $licenseName);
     }
 
     public function getLicenseShortname($licenseName)
