@@ -25,6 +25,8 @@
           content="Get started with your next PHP/Laravel package in no time with this package boilerplate generator."/>
     <meta property="og:image" content="https://laravelpackageboilerplate.com/img/twitter-card.png"/>
 
+    <meta name="description" content="Get started with your next PHP/Laravel package in no time with this package boilerplate generator.">
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
