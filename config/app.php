@@ -123,6 +123,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'github_webhook_secret' => env('GITHUB_WEBHOOK_SECRET'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

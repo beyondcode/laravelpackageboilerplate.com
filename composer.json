@@ -23,6 +23,7 @@
         "laravel/tinker": "^2.5",
         "maennchen/zipstream-php": "^2.1",
         "socialiteproviders/github": "^4.1",
+        "spatie/temporary-directory": "^1.3",
         "symplify/git-wrapper": "^9.2"
     },
     "require-dev": {
