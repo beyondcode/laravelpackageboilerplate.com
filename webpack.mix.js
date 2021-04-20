@@ -15,9 +15,10 @@ require('laravel-mix-purgecss');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .postCss('resources/css/app.css', 'public/css')
-   .tailwind()
-   .purgeCss();
+    .postCss("resources/css/app.css", "public/css", [require("tailwindcss")])
+
+
+    .browserSync("http://phppackageboilerplate.com.test/");
 
 if (mix.inProduction()) {
   mix.version();

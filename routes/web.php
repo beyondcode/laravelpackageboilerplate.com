@@ -24,6 +24,15 @@ Route::get('/', function () {
     ]);
 });
 
+
+Route::get('/new', function () {
+    $user = auth()->check() ? auth()->user() : new stdClass();
+
+    return view('index', [
+        'user' => $user
+    ]);
+});
+
 Route::get('/auth/github', RedirectToGithub::class);
 Route::get('/auth/github/callback', RedirectFromGithub::class);
 Route::post('/boilerplate', DownloadBoilerplate::class);
