@@ -11,7 +11,7 @@ class Php extends BaseBoilerplate
 
     public function location(): string
     {
-        return resource_path('boilerplates/php/');
+        return storage_path('skeletons/php/');
     }
 
 }

@@ -11,7 +11,7 @@ class Laravel extends BaseBoilerplate
 
     public function location(): string
     {
-        return resource_path('boilerplates/laravel/');
+        return storage_path('skeletons/laravel/');
     }
 
 }
