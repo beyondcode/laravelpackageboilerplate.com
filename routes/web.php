@@ -19,21 +19,12 @@ use App\Http\Controllers\RedirectToGithub;
 Route::get('/', function () {
     $user = auth()->check() ? auth()->user() : new stdClass();
 
-    return view('welcome', [
-        'user' => $user
-    ]);
-});
-
-
-Route::get('/new', function () {
-    $user = auth()->check() ? auth()->user() : new stdClass();
-
     return view('index', [
         'user' => $user
     ]);
 });
-
-Route::get('/auth/github', RedirectToGithub::class);
-Route::get('/auth/github/callback', RedirectFromGithub::class);
+//
+//Route::get('/auth/github', RedirectToGithub::class);
+//Route::get('/auth/github/callback', RedirectFromGithub::class);
 Route::post('/boilerplate', DownloadBoilerplate::class);
 Route::post('/boilerplate/github', CreateBoilerplateRepository::class);

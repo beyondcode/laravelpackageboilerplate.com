@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Support\Facades\Log;
+use App\Boilerplates\BoilerplateRepository;
 use Livewire\Component;
 
 class BoilerplateForm extends Component
@@ -14,30 +14,47 @@ class BoilerplateForm extends Component
     public $authorName = "";
     public $authorEmail = "";
     public $packageDescription = "";
-    public $license = "MIT";
+    public $license = "mit";
+    public $newsletter = "";
 
 
-    // toDo check these with composer docs
     protected $rules = [
         'vendorName' => 'required',
         'packageName' => 'required',
         'authorName' => 'required',
         'authorEmail' => 'required|email',
-//        'packageDescription' => '',
+        'packageDescription' => 'string|nullable',
         'license' => 'required',
     ];
 
 
     public function setPackageType($type)
     {
-        Log::info("setPackageType");
-        Log::info($type);
         $this->packageType = $type;
     }
 
     public function submit()
     {
         $this->validate();
+
+        $boilerplate = BoilerplateRepository::findForBoilerplateType($this->packageType);
+
+        if ($this->newsletter) {
+            $boilerplate->subscribeToNewsletter($this->authorEmail);
+        }
+
+        $requestData = [
+            "vendorName" => $this->vendorName,
+            "packageName" => $this->packageName,
+            "authorName" => $this->authorName,
+            "authorEmail" => $this->authorEmail,
+            "packageDescription" => $this->packageDescription,
+            "license" => $this->license,
+        ];
+
+        return response()->streamDownload(function () use ($boilerplate, $requestData) {
+            $boilerplate->zip($requestData);
+        }, 'download.zip');
     }
 
     public function render()

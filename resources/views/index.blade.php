@@ -11,50 +11,40 @@
     <title>{{ config('app.name', 'Laravel') }} - Kickstart your next package</title>
 
     <meta name="twitter:card" content="summary_large_image"/>
-    <meta name="twitter:creator" content="@marcelpociot"/>
-    <meta name="twitter:site" content="@marcelpociot"/>
+    <meta name="twitter:creator" content="@beyondcode"/>
+    <meta name="twitter:site" content="@beyondcode"/>
     <meta name="twitter:title" content="Laravel Package Boilerplate"/>
     <meta name="twitter:description"
           content="Get started with your next PHP/Laravel package in no time with this package boilerplate generator."/>
-    <meta name="twitter:image" content="https://laravelpackageboilerplate.com/img/twitter-card.png"/>
+    <meta name="twitter:image"
+          content="https://og.beyondco.de/PHP%20Package%20Boilerplate.png?theme=light&md=1&showLogo=1&body=This+generator+helps+you+with+the+boilerplate+code+to+help+you+focus+on+what%27s+most+important%3A+your+package.&fontSize=150px"/>
 
     <meta property="og:url" content="https://laravelpackageboilerplate.com"/>
     <meta property="og:type" content="product"/>
     <meta property="og:title" content="Laravel Package Boilerplate"/>
     <meta property="og:description"
           content="Get started with your next PHP/Laravel package in no time with this package boilerplate generator."/>
-    <meta property="og:image" content="https://laravelpackageboilerplate.com/img/twitter-card.png"/>
+    <meta property="og:image"
+          content="https://og.beyondco.de/PHP%20Package%20Boilerplate.png?theme=light&md=1&showLogo=1&body=This+generator+helps+you+with+the+boilerplate+code+to+help+you+focus+on+what%27s+most+important%3A+your+package.&fontSize=150px"/>
 
     <meta name="description"
           content="Get started with your next PHP/Laravel package in no time with this package boilerplate generator.">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet">
 
-    <script>
-        window.user = {!! json_encode($user) !!};
+    {{--    <script>--}}
+    {{--        window.user = {!! json_encode($user) !!};--}}
 
-        @if (request('github') === 'auth')
-            window.step = 2;
-        @endif
-    </script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75386803-11"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+    {{--        @if (request('github') === 'auth')--}}
+    {{--            window.step = 2;--}}
+    {{--        @endif--}}
+    {{--    </script>--}}
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
-
-        gtag('config', 'UA-75386803-11');
-    </script>
     @livewireStyles
 
 </head>
-<body class="bg-gradient-to-tl from-hulk-10 via-white to-hulk-100 ">
+<body class="bg-gradient-to-tl from-hulk-10 via-white to-hulk-100 bg-no-repeat ">
 <div class="container px-8 mx-auto mt-4">
 
     <a href="https://github.com/beyondcode/phppackageboilerplate.com" class="github-corner"
@@ -93,7 +83,7 @@
         </a>
     </header>
 
-    <main class="mt-8 px-4 py-5 sm:rounded-lg sm:p-6 w-11/12 mx-auto">
+    <main class="mt-8 md:px-4 py-5 sm:rounded-lg w-full md:w-11/12 mx-auto">
         <h1 class="text-4xl md:text-5.5xl text-center text-dark-blue-800 font-headline leading-tight">
             Boilerplate Generator for <br>
             <p class="inline-block relative text-hulk-800">
@@ -118,18 +108,22 @@
                 </mark>
             </p>
 
-            <p>Take a look at <a href="http://phppackagedevelopment.com/" class="text-hulk-800 font-semibold">PHP Package Development</a>, a premium video course on building Laravel packages.
+            <p>Take a look at <a href="http://phppackagedevelopment.com/" class="text-hulk-800 font-semibold">PHP
+                    Package Development</a>, a premium video course on building Laravel packages.
             </p>
         </div>
 
 
-<livewire:boilerplate-form />
+        <livewire:boilerplate-form/>
 
     </main>
 
-    <script src="{{ asset('js/app.js') }}"></script>
 </div>
-
+<footer class="flex items-center justify-center">
+    <a class="text-gray-700 no-underline text-sm py-4"
+       href="https://beyondco.de/privacy-policy">Imprint & Privacy</a>
+</footer>
+<script src="js/app.js"></script>
 @livewireScripts
 </body>
 </html>

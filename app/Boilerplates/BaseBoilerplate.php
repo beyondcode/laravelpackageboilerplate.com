@@ -9,8 +9,9 @@ use GitWrapper\GitWrapper;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use ZipStream\ZipStream;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 abstract class BaseBoilerplate implements Boilerplate
 {
@@ -18,23 +19,23 @@ abstract class BaseBoilerplate implements Boilerplate
     public function replacements(array $input): array
     {
         return [
-            ':vendor_namespace_escaped' => studly_case(array_get($input, 'vendorName')) . '\\\\' . studly_case(array_get($input, 'packageName')),
-            ':vendor_namespace' => studly_case(array_get($input, 'vendorName')) . '\\' . studly_case(array_get($input, 'packageName')),
-            ':vendor' => strtolower(array_get($input, 'vendorName')),
-            ':studly_package_name' => studly_case(array_get($input, 'packageName')),
-            ':package_name' => strtolower(array_get($input, 'packageName')),
-            ':package_description' => array_get($input, 'packageDescription'),
-            ':author_username' => array_get($input, 'authorUsername'),
-            ':author_name' => array_get($input, 'authorName'),
-            ':author_email' => array_get($input, 'authorEmail'),
-            ':license_shortname' => $this->getLicenseShortname(array_get($input, 'license')),
-            ':license_composer' => $this->getLicenseComposername(array_get($input, 'license')),
+            ':vendor_namespace_escaped' => Str::studly(Arr::get($input, 'vendorName')) . '\\\\' . Str::studly(Arr::get($input, 'packageName')),
+            ':vendor_namespace' => Str::studly(Arr::get($input, 'vendorName')) . '\\' . Str::studly(Arr::get($input, 'packageName')),
+            ':vendor' => strtolower(Arr::get($input, 'vendorName')),
+            ':studly_package_name' => Str::studly(Arr::get($input, 'packageName')),
+            ':package_name' => strtolower(Arr::get($input, 'packageName')),
+            ':package_description' => Arr::get($input, 'packageDescription'),
+            ':author_username' => Arr::get($input, 'authorUsername'),
+            ':author_name' => Arr::get($input, 'authorName'),
+            ':author_email' => Arr::get($input, 'authorEmail'),
+            ':license_shortname' => $this->getLicenseShortname(Arr::get($input, 'license')),
+            ':license_composer' => $this->getLicenseComposername(Arr::get($input, 'license')),
         ];
     }
 
     public function path(): string
     {
-        return storage_path('app/boilerplates/'.str_random().'/');
+        return storage_path('app/boilerplates/'.Str::random().'/');
     }
 
     public function getFiles(): Finder
@@ -95,7 +96,7 @@ abstract class BaseBoilerplate implements Boilerplate
             'unlicense' => 'The Unlicense',
         ];
 
-        return array_get($licenses, $licenseName);
+        return Arr::get($licenses, $licenseName);
     }
 
     public function getLicenseShortname($licenseName)
@@ -110,30 +111,27 @@ abstract class BaseBoilerplate implements Boilerplate
             'unlicense' => 'The Unlicense',
         ];
 
-        return array_get($licenses, $licenseName);
+        return Arr::get($licenses, $licenseName);
     }
 
     public function zip(array $input)
     {
+        $zip = new ZipStream('example.zip');
 
-        return new StreamedResponse(function () use ($input) {
-            $zip = new ZipStream('example.zip');
+        $replacements = $this->replacements($input);
 
-            $replacements = $this->replacements($input);
+        foreach ($this->getFiles() as $file)
+        {
+            if ($file->isFile()) {
+                $fileContent = str_replace(array_keys($replacements), array_values($replacements), $this->getFileContent($file, $input));
 
-            foreach ($this->getFiles() as $file)
-            {
-                if ($file->isFile()) {
-                    $fileContent = str_replace(array_keys($replacements), array_values($replacements), $this->getFileContent($file, $input));
-
-                    $zip->addFile($this->getFilename($file, $input), $fileContent);
-                } else {
-                    $zip->addFile($file->getRelativePathname().'/', '');
-                }
+                $zip->addFile($this->getFilename($file, $input), $fileContent);
+            } else {
+                $zip->addFile($file->getRelativePathname().'/', '');
             }
+        }
 
-            $zip->finish();
-        });
+        $zip->finish();
     }
 
     public function github(array $input)
@@ -197,7 +195,7 @@ abstract class BaseBoilerplate implements Boilerplate
 
     protected function getFilename(SplFileInfo $file, array $input): string
     {
-        $filename = str_replace('Skeleton', studly_case($input['packageName']), $file->getFilename());
+        $filename = str_replace('Skeleton', Str::studly($input['packageName']), $file->getFilename());
 
         return $file->getRelativePath() . '/' . $filename;
     }
