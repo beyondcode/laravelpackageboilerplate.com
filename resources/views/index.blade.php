@@ -44,7 +44,11 @@
     @livewireStyles
 
 </head>
-<body class="bg-gradient-to-tl from-hulk-10 via-white to-hulk-100 bg-no-repeat ">
+<body style="background: url('https://beyondco.de/img/monotone_open_source.png') top right no-repeat;
+    background-size: 100% 800px;
+    background-position-x: calc(100% + 0px);
+    background-position-y: -140px;
+">
 <div class="container px-8 mx-auto mt-4">
 
     <a href="https://github.com/beyondcode/phppackageboilerplate.com" class="github-corner"
