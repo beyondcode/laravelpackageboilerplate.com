@@ -33,6 +33,10 @@
     <!-- Styles -->
     <link href="css/app.css" rel="stylesheet">
 
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://tiglon.beyondco.de/script.js" data-site="CVTDHRJC" defer></script>
+    <!-- / Fathom -->
+
     {{--    <script>--}}
     {{--        window.user = {!! json_encode($user) !!};--}}
 
