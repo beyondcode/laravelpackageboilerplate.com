@@ -13,7 +13,7 @@
                 automated tests and code styling.</p>
             <div x-data="{packageType: 'laravel'}"
                  class="mt-8 flex items-center flex-col md:flex-row w-full justify-center">
-                <div class="flex flex-col md:flex-row items-center md:mr-16">
+                <div class="flex flex-col items-center md:mr-16">
                     <button type="button" @click="packageType = 'laravel'" wire:click="setPackageType('laravel')"
                             class="ml-3 bg-white py-8 px-24 flex items-center justify-center hover:border-hulk-100 shadow border-transparent border-2 transition duration-150 h-36 md:h-auto"
                             :class="{ 'border-hulk-800': packageType === 'laravel' }">
@@ -23,8 +23,9 @@
                                 fill="#FF2D20" fill-rule="evenodd"/>
                         </svg>
                     </button>
+                    <a class="mt-4" target="_blank" class="text-dark-blue-800" href="https://github.com/beyondcode/skeleton-laravel">See on GitHub</a>
                 </div>
-                <div class="flex items-center mt-4 md:mt-0">
+                <div class="flex items-center flex-col mt-4 md:mt-0">
                     <button type="button" @click="packageType = 'php'" wire:click="setPackageType('php')"
                             class="ml-3 bg-white py-8 px-24 hover:border-hulk-100 shadow border-transparent border-2 transition duration-150 h-36 md:h-auto"
                             :class="{ 'border-hulk-800': packageType === 'php' }">
@@ -37,6 +38,7 @@
                                 d="m70.412 10.123 14.204 0c4.169 0.035 7.19 1.237 9.063 3.604 1.873 2.367 2.491 5.6 1.855 9.699-0.247 1.873-0.795 3.71-1.643 5.512-0.813 1.802-1.943 3.427-3.392 4.876-1.767 1.837-3.657 3.003-5.671 3.498-2.014 0.495-4.099 0.742-6.254 0.742l-6.36 0-2.014 10.07-7.367 0 7.579-38.001 0 0m6.201 6.042-3.18 15.9c0.212 0.035 0.424 0.053 0.636 0.053 0.247 0 0.495 0 0.742 0 3.392 0.035 6.219-0.3 8.48-1.007 2.261-0.742 3.781-3.321 4.558-7.738 0.636-3.71 0-5.848-1.908-6.413-1.873-0.565-4.222-0.83-7.049-0.795-0.424 0.035-0.83 0.053-1.219 0.053-0.353 0-0.724 0-1.113 0l0.053-0.053"/>
                         </svg>
                     </button>
+                    <a class="mt-4" target="_blank" class="text-dark-blue-800" href="https://github.com/beyondcode/skeleton-php">See on GitHub</a>
                 </div>
             </div>
         </fieldset>
