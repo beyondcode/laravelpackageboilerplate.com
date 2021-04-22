@@ -1,0 +1,23 @@
+
+@import url('https://rsms.me/inter/inter-ui.css');
+
+@font-face {
+    font-family: Euclid Square;
+    src: url(/fonts/EuclidSquare-Regular-WebXL.woff) format("woff");
+    font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.hero-os-mark1 {
+    transform: translateY(12px) skewY(-1deg);
+}
+
+@media (min-width: 768px) {
+    .hero-os-mark1 {
+        transform: translateY(20px) skewY(-1deg);
+    }
+}
