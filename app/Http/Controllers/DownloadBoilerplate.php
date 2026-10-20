@@ -16,6 +16,10 @@ class DownloadBoilerplate extends Controller
             $boilerplate->subscribeToNewsletter($request->authorEmail);
         }
 
-        return $boilerplate->zip($request->all());
+        return response()->streamDownload(
+            fn () => $boilerplate->zip($request->all(), sendHttpHeaders: false),
+            'example.zip',
+            ['Content-Type' => 'application/x-zip'],
+        );
     }
 }
