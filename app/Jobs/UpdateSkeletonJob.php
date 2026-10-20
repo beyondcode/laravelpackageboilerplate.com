@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Artisan;
 
 class UpdateSkeletonJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    private string $skeleton;
+    use \Illuminate\Foundation\Queue\Queueable;
 
     /**
      * Create a new job instance.
@@ -23,9 +21,8 @@ class UpdateSkeletonJob implements ShouldQueue
      * @param string $skeleton
      * @return void
      */
-    public function __construct(string $skeleton)
+    public function __construct(private string $skeleton)
     {
-        $this->skeleton = $skeleton;
     }
 
     /**

@@ -17,7 +17,7 @@ class GitHubWebhookController extends Controller
     {
         $this->validateGithubWebhook(config('app.github_webhook_secret'), $request);
 
-        $skeletonType = $this->detectSkeletonType($request->get("repository"));
+        $skeletonType = $this->detectSkeletonType($request->input("repository"));
 
         dispatch(new UpdateSkeletonJob($skeletonType));
 

@@ -17,9 +17,7 @@ class BoilerplateRepository
 
     public static function findForBoilerplateType(string $type): BaseBoilerplate
     {
-        return self::getAll()->first(function ($boilerplate) use ($type) {
-            return $boilerplate->type() === $type;
-        });
+        return self::getAll()->first(fn($boilerplate) => $boilerplate->type() === $type);
     }
     
 }
