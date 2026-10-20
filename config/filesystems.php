@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DISK', env('FILESYSTEM_DRIVER', 'local')),
 
     /*
     |--------------------------------------------------------------------------
@@ -41,21 +41,16 @@ return [
     |
     */
 
+    /*
+    | Disk holding the licensed webfonts served by /fonts/{file} (s3 on Cloud).
+    */
+    'fonts_disk' => env('FONTS_DISK', 'public'),
+
     'disks' => [
 
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
-        ],
-
-        'base' => [
-            'driver' => 'local',
-            'root' => storage_path(),
-        ],
-
-        'boilerplates' => [
-            'driver' => 'local',
-            'root' => storage_path('app/boilerplates'),
         ],
 
         'public' => [
@@ -72,6 +67,9 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
+            'endpoint' => env('AWS_ENDPOINT'),
+            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
+            'throw' => false,
         ],
 
     ],

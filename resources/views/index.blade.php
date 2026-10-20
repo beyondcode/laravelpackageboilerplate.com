@@ -131,7 +131,6 @@
     <a class="text-gray-700 no-underline text-sm py-4"
        href="https://beyondco.de/privacy-policy">Imprint & Privacy</a>
 </footer>
-<script src="js/app.js"></script>
 @livewireScripts
 </body>
 </html>
