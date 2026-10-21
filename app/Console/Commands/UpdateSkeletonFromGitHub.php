@@ -9,22 +9,10 @@ use Spatie\TemporaryDirectory\TemporaryDirectory;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
+#[\Illuminate\Console\Attributes\Description('Update the given skeleton with the latest version on GitHub.')]
+#[\Illuminate\Console\Attributes\Signature('skeleton:update {skeleton}')]
 class UpdateSkeletonFromGitHub extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'skeleton:update {skeleton}';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Update the given skeleton with the latest version on GitHub.';
-
     /** @var Spatie\TemporaryDirectory\TemporaryDirectory */
     private $temporaryDirectory;
 
@@ -104,9 +92,7 @@ class UpdateSkeletonFromGitHub extends Command
 
     private function getPathToUnzippedRepository(string $pathToUnzippedRepo): ?string
     {
-        $directories = iterator_to_array((new Finder())->directories()->depth(1)->in($pathToUnzippedRepo)->filter(function (SplFileInfo $file) {
-            return true;
-        }));
+        $directories = iterator_to_array((new Finder())->directories()->depth(1)->in($pathToUnzippedRepo)->filter(fn(SplFileInfo $file) => true));
 
         return array_key_first($directories);
     }

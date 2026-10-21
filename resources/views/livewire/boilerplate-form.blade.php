@@ -1,5 +1,5 @@
 <div class="pt-24 w-full md:w-11/12 mx-auto">
-    <form wire:submit.prevent="submit">
+    <form wire:submit="submit">
         <fieldset class="mt-6">
             <legend class="mb-4 text-3xl leading-6 font-medium text-dark-blue-800">
                 Which <span class="text-hulk-800">package</span> do you want to build?

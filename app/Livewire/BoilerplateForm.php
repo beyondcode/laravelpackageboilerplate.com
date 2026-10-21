@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Boilerplates\BoilerplateRepository;
 use Livewire\Component;
@@ -53,7 +53,7 @@ class BoilerplateForm extends Component
         ];
 
         return response()->streamDownload(function () use ($boilerplate, $requestData) {
-            $boilerplate->zip($requestData);
+            $boilerplate->zip($requestData, sendHttpHeaders: false);
         }, 'download.zip');
     }
 

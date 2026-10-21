@@ -3,7 +3,6 @@
 namespace App\Exceptions;
 
 use Throwable;
-use Github\Exception\ValidationFailedException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -47,10 +46,6 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof ValidationFailedException)
-        {
-            abort(401);
-        }
         return parent::render($request, $exception);
     }
 }

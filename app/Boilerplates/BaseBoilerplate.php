@@ -3,10 +3,6 @@
 namespace App\Boilerplates;
 
 use DrewM\MailChimp\MailChimp;
-use Github\Client;
-use Gitonomy\Git\Repository;
-use GitWrapper\GitWrapper;
-use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 use ZipStream\ZipStream;
@@ -33,10 +29,6 @@ abstract class BaseBoilerplate implements Boilerplate
         ];
     }
 
-    public function path(): string
-    {
-        return storage_path('app/boilerplates/'.Str::random().'/');
-    }
 
     public function getFiles(): Finder
     {
@@ -45,25 +37,6 @@ abstract class BaseBoilerplate implements Boilerplate
             ->in($this->location());
     }
 
-    public function writeToDisk(string $path, array $input)
-    {
-        mkdir($path, 0755, true);
-
-        $replacements = $this->replacements($input);
-
-        /** @var SplFileInfo $file */
-        foreach ($this->getFiles() as $file)
-        {
-            if ($file->isFile()) {
-                $fileContent = str_replace(array_keys($replacements), array_values($replacements), $this->getFileContent($file, $input));
-
-                file_put_contents($path . $this->getFilename($file, $input), $fileContent);
-            } else {
-                @mkdir($path . $file->getRelativePathname(), 0755, true);
-            }
-
-        }
-    }
 
     public function subscribeToNewsletter($email)
     {
@@ -114,9 +87,9 @@ abstract class BaseBoilerplate implements Boilerplate
         return Arr::get($licenses, $licenseName);
     }
 
-    public function zip(array $input)
+    public function zip(array $input, bool $sendHttpHeaders = true)
     {
-        $zip = new ZipStream('example.zip');
+        $zip = new ZipStream(outputName: 'example.zip', sendHttpHeaders: $sendHttpHeaders);
 
         $replacements = $this->replacements($input);
 
@@ -127,63 +100,13 @@ abstract class BaseBoilerplate implements Boilerplate
 
                 $zip->addFile($this->getFilename($file, $input), $fileContent);
             } else {
-                $zip->addFile($file->getRelativePathname().'/', '');
+                $zip->addDirectory($file->getRelativePathname());
             }
         }
 
         $zip->finish();
     }
 
-    public function github(array $input)
-    {
-        $path = $this->path();
-
-        $pathname = str_replace(storage_path(), '', $path);
-
-        $token = auth()->user()->github_token;
-
-        try {
-            $this->writeToDisk($path, $input);
-
-            $githubClient = new Client();
-
-            $githubClient->authenticate($token, null, Client::AUTH_HTTP_TOKEN);
-
-            $repo = $githubClient->api('repo')
-                ->create($input['packageName'], $input['packageDescription']);
-
-            $repositoryUrl = "https://{$repo['owner']['login']}:{$token}@github.com/{$repo['full_name']}.git";
-
-            $gitWrapper = new GitWrapper(config('git.executable'));
-
-            $git = $gitWrapper->workingCopy($path);
-
-            $git->init();
-
-            $git->remote('add', 'origin', $repositoryUrl);
-
-            $git->add('.');
-
-            $git->config('user.name', 'Laravel Package Boilerplate');
-            $git->config('user.email', 'hello@beyondco.de');
-
-            $args = [
-                'm' => 'Another awesome package 📦',
-                'a' => true,
-                'author' => 'Laravel Package Boilerplate <hello@beyondco.de>'
-            ];
-
-            $git->commit($args);
-
-            $git->push('origin', 'master');
-
-            Storage::disk('base')->deleteDirectory($pathname);
-        } catch (\Exception $e) {
-            Storage::disk('base')->deleteDirectory($pathname);
-
-            throw($e);
-        }
-    }
 
     protected function getFileContent(SplFileInfo $file, array $input): string
     {

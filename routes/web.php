@@ -11,10 +11,8 @@
 |
 */
 
-use App\Http\Controllers\CreateBoilerplateRepository;
 use App\Http\Controllers\DownloadBoilerplate;
-use App\Http\Controllers\RedirectFromGithub;
-use App\Http\Controllers\RedirectToGithub;
+use App\Http\Controllers\ServeFont;
 
 Route::get('/', function () {
     $user = auth()->check() ? auth()->user() : new stdClass();
@@ -23,8 +21,8 @@ Route::get('/', function () {
         'user' => $user
     ]);
 });
-//
-//Route::get('/auth/github', RedirectToGithub::class);
-//Route::get('/auth/github/callback', RedirectFromGithub::class);
 Route::post('/boilerplate', DownloadBoilerplate::class);
-Route::post('/boilerplate/github', CreateBoilerplateRepository::class);
+
+// The licensed webfonts aren't in this public repository. On Cloud they live in the
+// object storage bucket; stream them from there so they stay same-origin (no CORS).
+Route::get('/fonts/{file}', ServeFont::class)->where('file', '[A-Za-z0-9._-]+\\.(woff2?|ttf|otf)');
